@@ -1,0 +1,3 @@
+gstIntegration.getGstRecord();
+
+gstIntegration.getGstRecord('07ACZPK9220B1ZG');

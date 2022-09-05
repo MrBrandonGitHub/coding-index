@@ -1,0 +1,8 @@
+public with sharing class ContactInvocable {
+    @InvocableMethod(label='send data to goRest'   description = 'Sample description' category='Contact')
+
+    public static void sendData(List<id> contactIds){
+        sendDataGoCallout.sendDataGo(contactIds);
+    }
+
+}

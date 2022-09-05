@@ -1,0 +1,6 @@
+import { LightningElement, wire } from 'lwc';
+import getAllAcc from '@salesforce/apex/getWireAccount.getAllAccount';
+
+export default class WireAsProperty extends LightningElement {
+    @wire(getAllAcc) accounts;
+}

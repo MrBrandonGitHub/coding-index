@@ -1,0 +1,6 @@
+import { LightningElement, api } from 'lwc';
+
+export default class ChildDemo1 extends LightningElement {
+    @api firstName;
+    @api lastName;
+}

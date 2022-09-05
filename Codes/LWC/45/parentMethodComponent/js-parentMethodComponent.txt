@@ -1,0 +1,13 @@
+import { LightningElement } from 'lwc';
+
+export default class ParentMethodComponent extends LightningElement {
+    parentInput;
+
+    changeHandler(event){
+        this.parentInput = event.target.value;
+
+        this.template.querySelector('c-child-method-component').callingFromParent(this.parentInput, 'Hott', 'Bankinggg'); // child componenttan metot çağrıldı
+        this.template.querySelector('lightning-card').title = this.parentInput; // input field a girilen değer aynı zamanda title kısmında da gözükecek
+        this.template.querySelector('c-child-method-component').childData = 'Test Test'; // child componenttan variable çağrıldı
+    }
+}

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Wire As Imperatively" >
+        <lightning-button 
+            label="Click Me" 
+            variant="brand" 
+            onclick={clickHandler} >
+        </lightning-button>
+
+       <template 
+                if:true={allAccount} 
+                for:each={allAccount} 
+                for:item="xx" >
+                <p key={xx}>{xx.Name}</p>
+       </template> 
+    </lightning-card>
+</template>

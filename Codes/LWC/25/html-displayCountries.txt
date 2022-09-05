@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title ="COUNTRIES">
+        <div class="slds-p-around_medium">
+            <template for:each={countries} for:item="elements">
+                <p key={elements}>{elements}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

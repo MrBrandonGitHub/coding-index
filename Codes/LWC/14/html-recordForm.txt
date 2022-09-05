@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="Lightning Record Form2">
+
+        <lightning-record-form
+        
+        object-api-name={objectApiName}
+        fields={myfields}
+        
+        columns="2"
+        mode="view"
+        
+        onerror={errorHandler}
+        onload={loadHandler}
+        onsubmit={submitHandler}
+        onsuccess={succesHandler}
+                  
+                  
+                  > 
+<!--layout-type = "Full" tüm field ları göster demek  /  
+                  "Compact" hepsini değil bazılarını-->
+<!--column: sayfa kaç sütündan oluşsun-->
+<!--mode: view: default. editleme yapılabilir. fieldlarda kalem işareti çıkar     
+          edit: editleme yapılabilir. fieldlarda kalem işareti çıkmaz
+          readonly: editleme yapılamaz. fieldlarda hiçbir işaret çıkmaz-->
+<!--onerror, onload, onsubmit, onsucces: bu işlemlerden sonra alert message versin-->
+<!-- yeni bir kayıt create edilecekse html den record id kısmı çıkartılır-->
+
+
+    </lightning-record-form>
+
+    </lightning-card>
+    
+</template>

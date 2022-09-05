@@ -1,0 +1,12 @@
+# Flow Fest Questions
+Create a flow and apex codes for each challenge.
+## Flow Fest V1 - Challenge 1
+Find the Closed Won Opportunity with the highest Amount value. Then, update the Account related to that Opportunity with the Amount of the highest Opportunity under the field AnnualRevenue.
+## Flow Fest V1 - Challenge 2
+Find the Closed Won Opportunity with the lowest Amount value. Then, create a new Task, associated to that Opportunity where Subject = “Follow Up”, Status = “Not Started”, ActivityDate = 3 days from Today.
+## Flow Fest V1 - Challenge 3
+Find an Account where Billing State = “NY” and capture all of the Contacts for that Account. Update the Number of Employees on the Account Record with the total count of Contacts found on that Account. Also, capture the number of contacts under that Account where their Title contains “SVP”
+## Flow Fest V1 - Challenge 4
+Find the Closed Won Opportunity with the highest Amount value. Based on that Opportunity, find all Contacts that are associated with the Account and create them as Opportunity Contact Roles for that same Opportunity. Role for all Contact Roles should be “Business User”.
+## Flow Fest V1 - Challenge 5
+sForce merged with GenePoint & rebranded as “geneForce”. Create a new Account with the name “geneForce”, using the values from sForce in the new account: Phone, Fax, Website. Then reparent all Related Records (Contacts & Opportunities) from GenePoint and sForce under the new “geneForce” account. Finally, calculate the Average Amount of only the Won Opportunities for geneForce.

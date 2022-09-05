@@ -1,0 +1,12 @@
+<template>
+    <div class="myColor">
+    <lightning-card title="Personal Info:" >
+        <div class="slds-m-around_medium">
+            <p>Hi, Please find my details below:</p>
+            <p>Name: {info.firstName} {info.lastName}</p>
+            <p>Age: {info.Age}</p>
+            <p>Country: {info.Country}</p>           
+        </div>
+    </lightning-card>
+    </div>
+</template>

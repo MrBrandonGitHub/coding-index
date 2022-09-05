@@ -1,0 +1,67 @@
+public with sharing class YoutubeIntegration {
+        Public static String APIKEY = Youtube_Setting_Data__mdt.getInstance('API_Key').Value__c;
+        Public static String endPoint = Youtube_Setting_Data__mdt.getInstance('EndPoint').Value__c;
+
+    public static void getYoutubeDatas(string videoName, String videoId ) {
+        
+        HttpRequest request = new HttpRequest();
+
+        
+        endPoint += 'part=statistics';
+        endPoint += '&id=' + videoId;
+        endPoint += '&key=' + APIKEY;
+
+        request.setEndpoint(endPoint);
+        request.setMethod('GET');
+
+        Http http = new Http();
+
+        HttpResponse response = new HttpResponse();
+        response = http.send(request);
+
+        if(response.getStatusCode() == 200){
+            string jsonBody = response.getBody();
+
+            WrapperParentYoutube allInfo = (WrapperParentYoutube) JSON.deserialize(jsonBody, WrapperParentYoutube.class);
+
+            Youtube_Video_Detail__c parentObj = new Youtube_Video_Detail__c();
+            parentObj.name = videoName;
+            parentObj.Video_Id__c = allinfo.items[0].id;
+            parentObj.Number_of_View__c = allinfo.items[0].statistics.viewCount;
+            parentObj.Number_of_Like__c = allinfo.items[0].statistics.likeCount;
+
+            insert parentObj;
+
+            
+        }     
+    }
+
+
+    Public class WrapperParentYoutube{
+        // Public string kind;
+        // Public string etag;
+        Public List<WrapperItems> items;
+        // Public wrapperPageInfo pageInfo;
+    }
+
+
+    // public class WrapperPageInfo{
+    //     Public integer totalResults;
+    //     Public integer resultsPerPage;
+    // }
+
+    public class WrapperItems{
+        Public string kind;
+        Public string etag;
+        Public string id;
+        Public WrapperStatistics statistics;
+    }
+
+    public class WrapperStatistics{
+        public string viewCount;
+        public string likeCount;
+        public string favoriteCount;
+        public string commentCount;
+    }
+
+}

@@ -1,0 +1,2 @@
+AccountBatchApex cls = new AccountBatchApex();
+Database.executeBatch(cls); //Default değeri 200

@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Publisher">
+      <lightning-input label="send data" 
+                       onchange={handleClick}>
+      </lightning-input>
+    </lightning-card>
+  </template>

@@ -1,0 +1,53 @@
+<!--
+while updating record if Rating is Hot then Next field would be Industry and if Rating Cold Next field would be Ownership and if Rating is Warm next field would be Fax.
+Hot-> Industry
+Warm -> Fax
+Cold-> Ownership
+-->
+
+<template>
+    <lightning-card title="CUSTOM RENDERING" >
+<lightning-record-edit-form 
+ record-id={recordId}
+ object-api-name={objectApiName} 
+
+ onerror={errorHandler}
+ onload={loadHandler}
+ onsubmit={submitHandler}
+ onsuccess={successHandler}
+
+ >
+<lightning-input-field field-name="Name" ></lightning-input-field>
+
+
+<lightning-input-field field-name="Rating" onchange={changeHandler} ></lightning-input-field>
+
+
+<template if:true={isIndustry} >
+
+<lightning-input-field field-name="Industry" ></lightning-input-field>
+
+</template>
+
+
+<template if:true={isFax} >
+
+<lightning-input-field field-name="Fax" ></lightning-input-field>
+
+</template>
+
+
+<template if:true={isOwnership}>
+
+<lightning-input-field field-name="Ownership" ></lightning-input-field>
+
+</template>
+
+<lightning-button label="Cancel" type="reset"></lightning-button>
+<lightning-button label="Save" type="submit" variant="brand"></lightning-button>
+</lightning-record-edit-form>
+<!--lightning record form  ==> fields , layout-type-->
+<!--lightning record view form ==> lightning-output-field tag-->
+<!--lightning record edit form ==> lightning-input-field-->
+    </lightning-card>
+</template>

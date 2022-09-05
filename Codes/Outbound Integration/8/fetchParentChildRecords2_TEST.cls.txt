@@ -1,0 +1,10 @@
+@isTest
+private class fetchParentChildRecords2_TEST {
+    @isTest static void testCallOut(){
+        Test.setMock(HttpCalloutMock.Class, new fetchParentChildRecordsMock()); // testlerde Test.setMock kullanılır 
+        //şu şekilde de çalıştırılabilirdi
+        // fetchParentChildRecordsMock() mck = new fetchParentChildRecordsMock();
+        // Test.setMock(HttpCalloutMock.Class, mck);
+        fetchParentChildRecords.fetchInfo();
+    }
+}

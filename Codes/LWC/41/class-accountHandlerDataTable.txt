@@ -1,0 +1,16 @@
+public with sharing class accountHandlerDataTable {
+
+    @AuraEnabled(Cacheable=true)
+    public static List<Account> getAllAccount(String strName){
+
+    List<Account> accList = new List<Account>();
+    //strName = '%' + strName + '%';
+    accList = [SELECT Id, Name, Rating, Industry, Phone, Website 
+                FROM Account 
+                WHERE Name 
+                LIKE : '%' +strName+'%' OR Rating LIKE : '%' +strName+'%'];
+
+    return accList;
+    }
+}
+    

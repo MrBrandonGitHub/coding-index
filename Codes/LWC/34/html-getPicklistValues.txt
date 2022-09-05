@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="GET VALUES OF STATE FIELD">
+        <lightning-combobox 
+            class="slds-p-around_medium"
+            label="All States"
+            placeholder="Select"
+            options={stateOptions}>
+        </lightning-combobox>
+    </lightning-card>
+</template>

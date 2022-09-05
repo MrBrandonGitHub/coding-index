@@ -1,0 +1,7 @@
+trigger SFProjectFUTURE_Trg on Salesforce_Project__c (after update) {
+    if(Trigger.isAfter){
+        if(Trigger.isUpdate){
+            SFProjectHandler.CompletedStatus(Trigger.new, Trigger.old, Trigger.newMap, Trigger.oldMap);
+        }
+    }
+}

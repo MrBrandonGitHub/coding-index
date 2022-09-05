@@ -1,0 +1,7 @@
+import { LightningElement } from 'lwc';
+
+export default class InnerCompoDev extends LightningElement {
+    title = 'Developer';
+    salary = '120-150';
+    certificate = 'Developer Cert';
+}

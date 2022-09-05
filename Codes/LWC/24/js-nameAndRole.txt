@@ -1,0 +1,22 @@
+import { LightningElement } from 'lwc';
+
+export default class NameAndRole extends LightningElement {
+
+    name;
+    role;
+
+    comboOptions= [
+        {label:'-- Null --' , value: '-- Null --'},
+        {label:'Salesforce Developer' , value: 'Salesforce Developer'},
+        {label: 'Salesforce Admin', value: 'Salesforce Admin'},
+        {label: 'Salesforce Architect', value: 'Salesforce Architect'}
+    ];
+
+    nameHandler(event){
+        this.name = event.target.value;
+    }   
+    
+    roleHandler(event){
+        this.role = event.target.value;
+    }
+}

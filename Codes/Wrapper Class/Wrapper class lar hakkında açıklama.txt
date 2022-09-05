@@ -1,0 +1,15 @@
+RestRequest req = restContext.request ==> RestRequest bir classtır. hem Body yi, hem Url i, hem httpMethod ları, hem Auth i içerir
+String jsonBody = req.requestBody.toString ==> req ten gelen tüm bilgilerden body'nin değerini çek ve body i string e çevir.
+
+jsonBody şu an body'deki verilerin stringe çevrilmiş hali oldu
+
+serialization: object i stringe çevirir
+deserialization: string i objecte dönüştürür
+
+
+accWrpper  wrp = (accWrpper)JSON.deserialize(jsonBody, accWrpper.Class); ==> jsonBody'i accWrpper Wrapper Classına dönüştür demek
+
+
+blob: image ve csv formlar
+
+----------------

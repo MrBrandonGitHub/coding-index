@@ -1,0 +1,5 @@
+trigger trgContact on Contact (after insert,after update,after delete,after undelete) {
+    if(trigger.isAfter &&(trigger.isUndelete || trigger.isInsert || trigger.isDelete)) {
+      trgContactHandler.afterInsert(trigger.isDelete ? trigger.old : trigger.new);
+    }
+}

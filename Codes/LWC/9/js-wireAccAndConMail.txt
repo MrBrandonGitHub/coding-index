@@ -1,0 +1,18 @@
+import { LightningElement, wire } from 'lwc';
+import getRecords from '@salesforce/apex/getRecordsAccAndConMailForWire.getGet';
+export default class WireAccAndConMail extends LightningElement {
+
+    accList;
+    conList;    
+
+    @wire(getRecords) comCom({data, error}){ 
+        // önce getGet metodunu bir isme maple.( mesela getRecords. bu isim abc de olabilirdi)
+        // sonra önemli olan 2.satırdaki getRecords ismi ile 8.satırdaki getRecords isminin aynı olması
+        if(data){
+            this.accList = data[0];
+            this.conList = data[1];            
+        }else if(error){
+            console.log(error);
+        }
+    }
+}

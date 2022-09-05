@@ -1,0 +1,32 @@
+import { LightningElement, wire } from 'lwc';
+import NAME_FIELD from '@salesforce/schema/Account.Name';
+import RATING_FIELD from '@salesforce/schema/Account.Rating';
+import PHONE_FIELD from '@salesforce/schema/Account.Phone';
+import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
+// Step-I
+import { getRecord,getFieldValue } from 'lightning/uiRecordApi';
+
+
+export default class GetRecordsApi extends LightningElement {
+    @wire(getRecord,{recordId:'0018d000008HcWgAAK' ,fields :[NAME_FIELD,RATING_FIELD,PHONE_FIELD,INDUSTRY_FIELD]  }) 
+    accRecord;// Wire as Property (data,error)
+
+    get name(){
+       return getFieldValue(this.accRecord.data, NAME_FIELD);;
+    }
+
+    get rating(){
+        return getFieldValue(this.accRecord.data, RATING_FIELD);;
+     }
+
+     get phone(){
+        return getFieldValue(this.accRecord.data, PHONE_FIELD);;
+     }
+
+     get industry(){
+        return getFieldValue(this.accRecord.data, INDUSTRY_FIELD);;
+     }
+
+    
+
+}

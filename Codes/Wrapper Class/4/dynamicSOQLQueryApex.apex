@@ -1,0 +1,1 @@
+dynamicSOQLQuery.unitClassMethod('Hot', 'Banking');

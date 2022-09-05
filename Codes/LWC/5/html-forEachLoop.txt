@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="For Each Loop">
+        <template for:each={accList} for:item="acc">
+            <p key={acc}>{acc}</p>
+        </template>
+    </lightning-card>
+</template>

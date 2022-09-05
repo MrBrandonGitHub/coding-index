@@ -1,0 +1,16 @@
+import { LightningElement } from 'lwc';
+
+export default class HelloWorld extends LightningElement {
+    // global variable
+  message = 'Hello';
+  inputLabel = 'Enter text message';
+  placeholderVariable = "Please enter message here......";
+  isDisable = false;
+
+  changeHandler(event){
+     this.message = event.target.value;//Hello Vishal welcome 
+     if(event.target.value.length > 20){
+        this.isDisable = true;
+     }           
+  }
+}

@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Update Record JavaScript Api" >
+        <lightning-input label="Account Name" placeholder="Enter Account name here...."
+        required="true" onchange={changeHandler} >
+     </lightning-input>
+ 
+     <br/>
+     <lightning-button label="Update Record" variant="brand" onclick={UpdateHandler} ></lightning-button>
+    </lightning-card> 
+ </template>

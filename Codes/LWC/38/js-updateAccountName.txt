@@ -1,0 +1,31 @@
+import { LightningElement,api } from 'lwc';
+import { updateRecord } from 'lightning/uiRecordApi';
+import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+import ACCOUNT_NAME from '@salesforce/schema/Account.Name';
+import ACCOUNT_Id from '@salesforce/schema/Account.Id';
+
+export default class UpdateAccountName extends LightningElement {
+    AccountName ;
+    @api recordId;
+    
+    changeHandler(event){
+    this.AccountName = event.target.value;
+    }
+
+    UpdateHandler(){
+        // When Ever User define any variable inside the method then data must be either let,var , const
+        let fields ={};
+        fields[ACCOUNT_Id.fieldApiName] = this.recordId;
+        fields[ACCOUNT_NAME.fieldApiName] = this.AccountName;
+
+        let recordInput = {
+            fields
+        };
+
+        updateRecord(recordInput).then(result=>{
+            alert('-Success--');
+        }).catch(error=>{
+            alert(error.body.message);
+        });
+    }
+}

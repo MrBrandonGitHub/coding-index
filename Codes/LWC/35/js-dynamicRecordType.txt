@@ -1,0 +1,27 @@
+import { LightningElement, wire } from 'lwc';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import ACCOUNT_OBJ from '@salesforce/schema/Account';
+
+export default class DynamicRecordType extends LightningElement {
+    allRecordType = [];
+    options = [];
+    value;
+    
+    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJ }) getObj({ error, data }) {
+        if (data) {
+            for (var key in data.recordTypeInfos) {
+                this.allRecordType.push({label:data.recordTypeInfos[key].name, value:key });
+            }
+            this.options = this.allRecordType;
+            this.value = data.defaultRecordTypeId;
+        } else if (error) {
+            let message = 'Unknown error';
+            if (Array.isArray(error.body)) {
+                message = error.body.map(e => e.message).join(', ');
+            } else if (typeof error.body.message === 'string') {
+                message = error.body.message;
+            }
+        }
+    }
+
+}

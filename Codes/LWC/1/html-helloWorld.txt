@@ -1,0 +1,15 @@
+<template>
+  <lightning-card title="Hello World2">
+    <div class="slds-p-around_medium">
+    <p>{message} </p>
+        <lightning-input 
+            label={inputLabel}
+            value= 'type here' 
+            placeholder={placeholderVariable}
+            required="true" 
+            onchange={changeHandler} 
+            disabled={isDisable}>
+        </lightning-input> 
+    </div>
+  </lightning-card>  
+</template>

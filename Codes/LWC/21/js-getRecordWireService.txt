@@ -1,0 +1,34 @@
+import { LightningElement , api, wire} from 'lwc';
+import { getRecord  } from 'lightning/uiRecordApi'; // STEP 1
+import ACCOUNT_NAME from '@salesforce/schema/Account.Name'; // STEP 4
+import ACCOUNT_RATING from '@salesforce/schema/Account.Rating';
+import ACCOUNT_INDUSTRY from '@salesforce/schema/Account.Industry';
+import ACCOUNT_PHONE from '@salesforce/schema/Account.Phone';
+export default class GetRecordWireService extends LightningElement {
+    @api recordId; // STEP 2 : Sayfanın id sini çek
+    accName; // STEP 3: VARİABLE LARI TANIMLA
+    accRating;
+    accIndustry;
+    accPhone;
+
+    @wire(getRecord , { recordId : '$recordId', 
+                        fields : [  ACCOUNT_NAME, 
+                                    ACCOUNT_RATING, 
+                                    ACCOUNT_INDUSTRY, 
+                                    ACCOUNT_PHONE ]}) // STEP 5
+   
+    getAccounts({data,error}){ // STEP 6
+        if(data){
+            // console.log('----');
+            // console.log(data);
+            // console.log(data.fields);            
+            // console.log(data.fields['Name']);
+            this.accName = data.fields[ACCOUNT_NAME.fieldApiName].value; // fieldApiName ile stringe dönüştürür. çünkü getRecord string istiyor
+            this.accRating = data.fields[ACCOUNT_RATING.fieldApiName].value; // fieldApiName ile stringe dönüştürür. çünkü getRecord string istiyor
+            this.accIndustry = data.fields[ACCOUNT_INDUSTRY.fieldApiName].value; // fieldApiName ile stringe dönüştürür. çünkü getRecord string istiyor
+            this.accPhone = data.fields[ACCOUNT_PHONE.fieldApiName].value; // fieldApiName ile stringe dönüştürür. çünkü getRecord string istiyor
+        }else if(error){
+            console.log(error);
+        }
+    }
+}

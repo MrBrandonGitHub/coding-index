@@ -1,0 +1,38 @@
+import { LightningElement, api } from 'lwc';
+import option1 from './temp1.html';
+import option2 from './temp2.html';
+import option3 from './temp3.html';
+
+
+// export default class RenderPage extends LightningElement {
+//     @api whichPage = 'first'; // ilk karşılama sayfasında first olan yani option1 yani temp1 gözükecek
+
+//     pageRender(event){
+//         this.whichPage = this.whichPage == 'first' ? 'second' : 'first';
+//     }
+
+//     render(){
+//         return this.whichPage == 'first' ? option1 : option2;
+//     }
+// }
+
+// üç tane html sayfası olsaydı
+
+export default class RenderPage extends LightningElement {
+    @api whichPage = 'third'; // ilk karşılama sayfasında third olan yani option3 yani temp3 gözükecek
+
+    pageRender(event){
+        this.whichPage = this.whichPage == 'first' ? 'second' : 'first';
+    }
+
+    render(){
+        if(this.whichPage == 'first'){
+            return option1;
+        }else if(this.whichPage == 'second'){
+            return option2;
+        }else if(this.whichPage == 'third'){
+            return option3;
+        }
+    }
+}
+

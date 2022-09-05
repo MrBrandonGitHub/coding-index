@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Lightning RECORD VIEW FORM">
+        <lightning-record-view-form
+            object-api-name={objectApiName}
+            record-id={recordId}>        
+            
+                <lightning-output-field field-name="Name"></lightning-output-field>
+                <lightning-output-field field-name="StageName"></lightning-output-field>
+                <lightning-output-field field-name="CloseDate"></lightning-output-field>                
+                <lightning-output-field field-name="Type"></lightning-output-field>
+
+            </lightning-record-view-form>
+    </lightning-card>
+</template>

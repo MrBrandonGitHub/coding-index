@@ -1,0 +1,13 @@
+import { LightningElement } from 'lwc';
+
+export default class ChildListener extends LightningElement {
+    childMessage;
+
+    changeHandlerChild(event){
+        this.childMessage = event.target.value;
+        const myEvent = new CustomEvent('childtoparent', {detail:this.childMessage, bubbles:true});
+        // bubbles: js ten js e gönderilecekse true yazmak zorunlu. js ten html e gönderilecekse true yazak zorunlu değil
+        this.dispatchEvent(myEvent);
+    }
+}
+

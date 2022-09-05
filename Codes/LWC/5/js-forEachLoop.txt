@@ -1,0 +1,7 @@
+import { LightningElement } from 'lwc';
+
+export default class ForEachLoop extends LightningElement {
+    
+    accList = ['Mike','John', 'Donald'];
+
+}

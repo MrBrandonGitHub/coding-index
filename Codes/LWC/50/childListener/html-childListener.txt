@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title='Child Listener Component'>
+        <lightning-input label='Child Input' 
+                         type='text'
+                         onchange={changeHandlerChild}>
+    </lightning-input>
+    </lightning-card>
+</template>

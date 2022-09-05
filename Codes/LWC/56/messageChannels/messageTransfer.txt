@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel>
+    
+    <masterLabel>String Transfer</masterLabel>
+    <isExposed>true</isExposed>
+    <!--This is the way to create variable in LMS-->
+    <lightningMessageFields>
+        <description>fetching information from Lightning Input</description>
+        <fieldName>str</fieldName>
+    </lightningMessageFields>
+
+</LightningMessageChannel>

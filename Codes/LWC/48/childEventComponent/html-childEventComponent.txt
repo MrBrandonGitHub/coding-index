@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Child Event Component">
+        <lightning-input label="Child Input" 
+                         type="text"
+                         placeholder="Enter child component message here.."
+                         onchange={changeHandlerChild}>
+        </lightning-input>
+    </lightning-card>
+</template>

@@ -1,0 +1,22 @@
+@isTest
+public with sharing class AccountBatchApex_TEST {
+    @istest
+    public static void batchTest(){
+        //Kayıt oluşturma
+        List<Account> listAcc = new List<Account>();
+        for(integer i = 0 ; i < 200 ; i++){
+            Account acc = new Account();
+            acc.Name  = 'Acc deneme';
+            acc.Description = '';
+            listAcc.add(acc);
+        }
+        insert listAcc;
+        // Test yapılması
+        Test.StartTest();
+        AccountBatchApex cls = new AccountBatchApex();
+            Database.executeBatch(cls, 200); // Batch Size değeri üzerinde işlem yapılacak kayıt sayısına eşit yada fazla olmalı
+        Test.StopTest();
+        Account acc = [SELECT id, Description FROM Account LIMIT 1];
+        System.assertEquals ('This field updated in the Batchable Apex', acc.Description);
+    }
+}

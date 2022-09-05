@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Welcomen to My Page">
+        <lightning-button label="Click Me"                          
+                          onclick={pageRender}>
+        </lightning-button>
+    </lightning-card>
+</template>

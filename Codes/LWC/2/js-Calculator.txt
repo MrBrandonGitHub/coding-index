@@ -1,0 +1,69 @@
+import { LightningElement, track } from 'lwc';
+
+export default class Calculator extends LightningElement {
+    @track num1;
+    @track num2;
+    @track result;
+
+    @track isAdd = false;
+    @track isSub = false;
+    @track isMul = false;
+    @track isDiv = false;
+    @track isRef = false;
+
+    addHandler(){
+        this.result = parseInt(this.num1) + parseInt(this.num2);
+        this.isAdd = true;
+        this.isDiv = false;
+        this.isMul = false;
+        this.isSub = false;
+        this.isRef = true;
+    }
+
+    subHandler(){
+        this.result = parseInt(this.num1) - parseInt(this.num2);
+        this.isSub = true;
+        this.isAdd = false;
+        this.isDiv = false;
+        this.isMul = false;
+        this.isRef = true;        
+    }
+
+    mulHandler(){
+        this.result = parseInt(this.num1) * parseInt(this.num2);
+        this.isMul = true;
+        this.isAdd = false;
+        this.isDiv = false;        
+        this.isSub = false;
+        this.isRef = true;
+    }
+
+    divHandler(){
+        this.result = parseInt(this.num1) / parseInt(this.num2);
+        this.isDiv = true;
+        this.isAdd = false;        
+        this.isMul = false;
+        this.isSub = false;
+        this.isRef = false;
+        this.isRef = true;
+    }
+
+    refHandler(){
+        //alert('Hi i am refresh method');
+        this.num1 = null;
+        this.num2 = null;
+        this.isAdd = false;
+        this.isSub = false;
+        this.isDiv = false;
+        this.isMul = false;
+        this.isRef = false;
+    }
+    
+    firstHandler(event){
+        this.num1 = event.target.value;
+    }
+
+    secondHandler(event){
+        this.num2 = event.target.value;
+    }
+}

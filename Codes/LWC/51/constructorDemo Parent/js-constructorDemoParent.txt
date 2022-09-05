@@ -1,0 +1,32 @@
+import { LightningElement } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+export default class ConstructorDemoParent extends LightningElement {
+    isDisplay = true;    
+
+    constructor() {
+        super();// Mandatory This is Predefined
+        // DOM not Inserted
+        console.log('---Constructor firing from Parent-');// no result
+    }
+
+    // When DOM get created or Inserted
+    connectedCallback() {
+        console.log('---Connected Callback firing from Parent-');
+        const evt = new ShowToastEvent({
+            title: 'Toast Info',
+            message: 'Welcome to my page',
+            variant: 'info',
+            mode: 'dismissable'
+        });
+        this.dispatchEvent(evt);
+    }
+
+    removeChildComponent() {
+        if (this.isDisplay == true) {
+            this.isDisplay = false;
+        } else if (this.isDisplay == false) {
+            this.isDisplay = true;
+        }
+    }
+}

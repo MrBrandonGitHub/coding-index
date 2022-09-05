@@ -1,0 +1,19 @@
+import { LightningElement,track } from 'lwc';
+
+export default class ChildEventComponent extends LightningElement {
+    @track childMessage;
+    changeHandlerChild(event){
+        this.childMessage = event.target.value;
+
+        // yapılacak 2 işlem: 1-register 2-dispatch kullanımı
+        // 1-register for Event
+        const myEvent = new CustomEvent('childtoparent', {detail:this.childMessage}); 
+        // 2 parametre olmalı. 1)event name 2)neyi çağıracağın
+        // event name must be in small letter, No spaces, No special characters
+        // bubbles:true yazmaya gerekli değil. çünkü child js te yazılan parent html de çağrıldı. 
+        // şayet child js te yazılıp parent js te çağrılsa idi bubbles:true yazmak zorunlu idi
+
+        // 2-Dispatch Event to parent component
+        this.dispatchEvent(myEvent); // for sending to parent component ==> dispatchEvent
+    }
+}

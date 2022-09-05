@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="All Record Types picklist values" >
+        <lightning-combobox 
+            label="Account Record Type" 
+            options={options} 
+            value={value} 
+            onchange={changeHandler}
+            >
+        </lightning-combobox>
+
+        <div class="slds-text-heading_medium">
+            All Account State field values set BASED ON RECORD TYPE.....
+        </div>
+        <lightning-combobox 
+        label="Account State" 
+        options={allOptional} 
+        >
+        </lightning-combobox>
+    </lightning-card>
+</template>

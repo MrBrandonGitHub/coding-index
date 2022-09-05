@@ -1,0 +1,48 @@
+import { LightningElement} from 'lwc';
+
+export default class OnchangeTHY extends LightningElement {
+    
+    nereden;
+    nereye;
+    uçuşTür;
+    gidişTarih;
+    dönüşTarih;
+    yolcuSayisi;    
+
+    neredenMethod(event){
+        this.nereden = event.target.value;
+    }
+    nereyeMethod(event){
+        this.nereye = event.target.value;
+    }
+    uçuşTürMethod(event){
+        this.uçuşTür = event.detail;
+    }
+    gidişTarihMethod(event){
+        this.gidişTarih = event.target.value;
+    }
+    dönüşTarihMethod(event){
+        this.dönüşTarih = event.target.value;
+    }
+    yolcuSayiMethod(event){
+        this.yolcuSayisi = event.target.value;
+    }
+
+    value = 'Economy';
+
+    get options() {
+        return [
+            { label: 'Economy', value: 'Economy' },
+            { label: 'Business', value: 'Business' },
+            { label: 'Luxury', value: 'Luxury' },
+        ];
+    }
+
+    handleChange(event) {
+        this.value = event.detail.value;
+    }
+
+
+
+
+}

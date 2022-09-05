@@ -1,0 +1,16 @@
+<template>    
+    <lightning-card title="Parent Input">
+        this is parent variable : {xyz}
+        <lightning-input label="Enter Parent Information"
+                         type="text" 
+                         placeholder="Please enter detail"
+                         onchange={changeHandler}>
+        </lightning-input>
+
+        <c-child-component child-message={parentMessage}
+                           child-message-new={xyz}
+                           >
+        </c-child-component>
+        
+    </lightning-card>
+</template>

@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Parent Event Component">
+        <p>Hello, {parentMessage}</p>
+
+        <br>
+
+        <c-child-event-component onchildtoparent={changeHandlerParent}> <!--parametrenin önüne her zaman on gelir. onchildtoparent gibi-->
+        </c-child-event-component>
+    </lightning-card>
+</template>

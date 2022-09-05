@@ -1,0 +1,33 @@
+List<Account> accList = new List<Account>();
+Account acc1 = new Account();
+acc1.Name = 'Test-12';
+accList.add(acc1);
+
+Account acc2 = new Account();
+acc2.Name = 'Test-22';
+accList.add(acc2);
+
+Account acc3 = new Account();
+accList.add(acc3);
+
+Account acc4 = new Account();
+accList.add(acc4);
+
+List<Database.SaveResult> srList = Database.insert(accList, false); 
+system.debug(srList);
+
+for(Database.SaveResult sr : srList){
+    if(sr.isSuccess()){
+        System.debug('Succesfully Inserted : ' + sr.getId());
+    }
+    else{
+        for(Database.Error err : sr.getErrors()){
+            System.debug(err.getStatusCode() + ':' + err.getMessage());
+            System.debug(err.getFields());
+        }
+    }
+}
+// false olması durumunda acc1 ve acc2 kayıt edilir
+// List<Database.SaveResult> srList = Database.insert(accList, true);
+// system.debug(srList); 
+// true olması durumunda hiç bir kayıt insert edilmez.

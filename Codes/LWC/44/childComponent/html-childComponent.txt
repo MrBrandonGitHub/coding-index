@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Child Component">
+        <div class="slds-p-around_large">
+        <p>Hello, {childMessage}</p>
+        <p>Hello(in Dutch), {childMessageNew}</p>
+        </div>
+    </lightning-card>
+</template>

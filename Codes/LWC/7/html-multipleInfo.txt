@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title = "My Table">
+        <div class = "slds-p-around_medium">
+            <table class="slds-table slds-table_cell-buffer 
+                        slds-table_bordered 
+                        slds-table_col-bordered 
+                        slds-table_striped">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>                
+
+                <tbody>
+                    <template for:each={allPeopleInfo} for:item ="person">
+                        <tr key={person}> 
+                            <td>{person.firstName}</td>
+                            <td>{person.lastName}</td>
+                            <td>{person.Email}</td>
+                        </tr>
+                    </template>
+                </tbody>
+                
+            </table>
+        </div>
+    </lightning-card>
+</template>

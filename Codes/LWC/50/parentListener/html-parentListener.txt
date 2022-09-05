@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Parent Listener Component">
+        <p>Hello, {parentMessage}</p>
+
+        <c-child-listener></c-child-listener>
+    </lightning-card>
+</template>

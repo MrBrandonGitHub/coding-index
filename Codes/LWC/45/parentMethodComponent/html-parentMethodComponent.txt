@@ -1,0 +1,12 @@
+<template>
+    <lightning-card title="Parent Component">
+        <lightning-input label="Parent Input" 
+                         type="text"
+                         placeholder="type here"
+                         onchange={changeHandler}>
+                        </lightning-input>
+    <c-child-method-component>
+        
+    </c-child-method-component>
+    </lightning-card>
+</template>

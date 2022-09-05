@@ -1,0 +1,15 @@
+import { LightningElement, track, api } from 'lwc';
+
+export default class ChildMethodComponent extends LightningElement {
+    @track childMessage;
+    @track myRating;
+    @track myIndustry;
+
+    @api childData;    
+
+    @api callingFromParent(StrValue, Ratinggg, Industryyy){
+        this.childMessage = StrValue;
+        this.myRating = Ratinggg;
+        this.myIndustry = Industryyy;
+    }
+}

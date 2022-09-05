@@ -1,0 +1,16 @@
+5 için
+
+{
+"Name": "Mr.Brandon",
+"Rating": "Hot",
+"Industry": "IT"
+}
+
+
+6 için
+
+{
+"Name": "Mr.Brandon2",
+"Rating": "HotHot",
+"Industry": "IT&IT"
+}

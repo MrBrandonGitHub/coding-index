@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="GET OBJECT INFORMATION">
+        <div class="abc">
+        <b>Object Api Name: </b>{accountApiName}
+        <br>
+        <b>Record Type Id:</b> {recordTypeId}
+        <br>
+        <b>Account Number:</b> {accNumber}
+        <br>
+        <b>Color Code:</b> {colorCode}
+        <br>
+        
+        <template
+            for:each={allFieldsName}
+            for:item="item">
+            <p key={item}>{item}</p>
+
+
+        </template>
+        </div>
+    </lightning-card>
+</template>

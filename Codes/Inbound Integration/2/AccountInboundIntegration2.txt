@@ -1,0 +1,77 @@
+@RestResource(urlMapping='/AccountRecords/')
+global class AccountInboundIntegration2 {
+    @httpGet
+    global Static Account getAccRecord(){
+        RestRequest req = RestContext.request;
+        Map<String,String> mapOfParams = req.params;
+        Account acc = [SELECT Id,Name,Rating,Industry,Phone FROM Account WHERE Id =: mapOfParams.get('Id')];
+        return acc; 
+    }
+    
+    @httpPost
+    global static Account createRecord(){
+        // Salesforce
+        RestRequest request = RestContext.request;//All request
+        System.debug('-----Request getting from test class----'+request);
+        String jsonBody = request.requestBody.toString();//here it will store Body
+        AccountWrapper wrapperData = (AccountWrapper) JSON.deserialize(jsonBody, AccountWrapper.Class);
+        Account acc = new Account();
+        acc.Name = wrapperData.Name;
+        acc.Rating = wrapperData.Rating;
+        acc.Industry = wrapperData.Industry;
+        acc.Phone = wrapperData.Phone;
+        insert acc;
+        return acc; 
+    }
+    @httpDelete
+    global static Account getDeleteRecord(){
+        RestRequest request = RestContext.request;
+        Map<String,String> allParams = request.params;
+        Account acc = new Account();
+        acc = [SELECT Id,Name,Rating,Industry FROM Account WHERE Id =: allParams.get('Id')];
+        delete acc;
+        return acc;
+    }
+    
+    @httpPatch
+    global static Account getUpdatedRecords(){
+        RestRequest request = RestContext.request;
+        Map<String,String> allParams = request.params;// Id
+        String str = request.requestBody.toString();// current data Type is String
+        AccountWrapper wrp =  (AccountWrapper) JSON.deserialize(str, AccountWrapper.Class);
+        Account acc = [SELECT Id,Name,Industry,Rating,Phone FROM Account WHERE Id =: allParams.get('Id')];
+        acc.Name = wrp.Name;
+        acc.Rating = wrp.Rating;
+        acc.Industry = wrp.Industry;
+        acc.Phone = wrp.Phone;
+        update acc;
+        return acc;
+    }
+    
+    @httpPut
+    global static Account getUpsertRecords(){// upsert = up(Update) + sert(Insert)
+        RestRequest request = RestContext.request;
+        Map<String,String> allParams = request.params;// Id
+        String str = request.requestBody.toString();// current data Type is String
+        AccountWrapper wrp =  (AccountWrapper) JSON.deserialize(str, AccountWrapper.Class);
+        
+        Account acc = new Account();
+        acc.Id = allParams.get('Id');
+        acc.Name = wrp.Name;
+        acc.Rating = wrp.Rating;
+        acc.Industry = wrp.Industry;
+        acc.Phone = wrp.Phone;
+        upsert acc;
+        return acc;
+        
+    }
+    
+    public Class AccountWrapper{
+        Public String Name;
+        Public String Rating;
+        Public String Industry;
+        Public String Phone;
+    }
+    
+    
+}

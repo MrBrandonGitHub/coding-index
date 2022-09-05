@@ -1,0 +1,97 @@
+import { LightningElement } from 'lwc';
+import { createRecord } from 'lightning/uiRecordApi';
+import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import CONTACT_OBJ from '@salesforce/schema/Contact';
+import CONTACT_FIRSTNAME from '@salesforce/schema/Contact.FirstName';
+import CONTACT_LASTNAME from '@salesforce/schema/Contact.LastName';
+import CONTACT_EMAIL from '@salesforce/schema/Contact.Email';
+import CONTACT_PHONE from '@salesforce/schema/Contact.Phone';
+
+
+export default class CreateRecordsWithWire extends NavigationMixin(LightningElement) {
+
+    firstName;
+    lastName;
+    email;
+    phone;
+
+    saveHandler(event){
+        // Object api name of CONTACT
+        // fields Key Value pair
+        var myFields = {};
+        myFields[CONTACT_FIRSTNAME.fieldApiName] = this.firstName;
+        myFields[CONTACT_LASTNAME.fieldApiName] = this.lastName;
+        myFields[CONTACT_EMAIL.fieldApiName] = this.email;
+        myFields[CONTACT_PHONE.fieldApiName] = this.phone;
+        console.log(myFields);
+
+        const recordInput = {
+            apiName : CONTACT_OBJ.objectApiName,
+            fields : myFields
+        }
+
+        createRecord(recordInput)
+        .then(record=>{
+            this[NavigationMixin.Navigate]({
+                type: 'standard__recordPage',
+                attributes: {
+                    recordId: record.id,
+                    objectApiName: 'Contact', // hangi objectin record page inde görülsün isteniyorsa
+                    actionName: 'view'
+                }
+            });
+                var evt = new ShowToastEvent({
+                    title: "Contact Record Status",
+                    message: "Your record has been created successfully",
+                    variant: "success"
+                });
+                // alert ("------Success------");
+                this.dispatchEvent(evt);
+
+        })
+        .catch(error=>{
+                    //Toast Message
+            const evt = new ShowToastEvent({
+                title: "Account Record Status",
+                message: "Error",
+                variant: "error"
+            })
+            this.dispatchEvent(evt);
+        });
+                // create edildiğinde then() tetiklenir
+                // hata olduğunda catch() tetiklenir
+
+                // eğer Home daki componentta kayıt girildiğinde Contact sayfasının tüm listesine götürsün:
+                // createRecord(recordInput)
+                //     .then(record => {
+                //         this[NavigationMixin.Navigate]({
+                //             type: 'standard__objectPage',
+                //             attributes: {
+                //                 objectApiName: CONTACT_OBJECT.objectApiName,
+                //                 actionName: 'home'
+                //             }
+                //         });
+                //     })
+                //     .catch(error=>{
+                //         alert("error")
+                //     });
+
+    }
+
+    firstNameHandler(event){
+    this.firstName = event.target.value;
+    }
+
+    lastNameHandler(event){
+    this.lastName = event.target.value;
+    }
+    
+    emailHandler(event){
+    this.email = event.target.value;
+    }
+
+    phoneHandler(event){
+    this.phone = event.target.value;
+    }
+}

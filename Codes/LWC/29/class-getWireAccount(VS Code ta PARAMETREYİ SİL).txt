@@ -1,0 +1,11 @@
+public with sharing class getWireAccount {
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getAllAccount(){
+
+        List<Account> accList = new List<Account>();
+
+        accList = [SELECT Id, Name, Rating, Industry FROM Account limit 10];
+
+        return accList;
+    }
+}

@@ -1,0 +1,4 @@
+OutboundIntegration.getRecord();
+
+OutboundIntegration.postRecord();
+

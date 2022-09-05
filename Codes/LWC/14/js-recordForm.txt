@@ -1,0 +1,35 @@
+import { LightningElement, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+export default class RecordForm extends LightningElement {
+    @api objectApiName;
+    @api recordId;
+    myfields = ['Name','Rating','Industry','Phone','Website'];
+
+    errorHandler(event){
+        const evt = new ShowToastEvent({
+            title: 'Account Record Status',
+            message: 'Error',
+            variant: 'error',
+        });
+        this.dispatchEvent(evt);
+    }
+    
+    loadHandler(event){
+        //alert('----Load---');
+    }
+    
+    submitHandler(event){
+        //alert('----Load---');
+    }
+    
+    succesHandler(event){
+        const evt = new ShowToastEvent({
+            title: 'Account Record Status',
+            message: 'Succesfully',
+            variant: 'error',
+        });
+        this.dispatchEvent(evt);
+    }
+    
+}
+

@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Parent Demo1">
+        <div class="slds-p-around_medium">
+        <lightning-input label="Entrance Name" 
+                         type="text"
+                         onchange={changeHandler}
+                         >
+        </lightning-input>
+        </div>
+        <div class="slds-p-around_medium">
+        <lightning-input label="Entrance Surname" 
+                         type="text"
+                         onchange={changeHandler2}
+                         >
+        </lightning-input>
+        </div>
+
+        <c-child-demo-1 first-name={nameFromParent} 
+                        last-name={surnameFromParent}>
+        </c-child-demo-1>                                         
+    </lightning-card>
+</template>

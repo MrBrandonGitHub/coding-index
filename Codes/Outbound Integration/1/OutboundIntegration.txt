@@ -1,0 +1,72 @@
+    public class OutboundIntegration {
+        public static void getRecord(){
+           
+            
+            // Sending request to Particular url to get Information from URL
+            // 1 request için must 2 şey: setEndPoint ve setMethod
+           HttpRequest request = new HttpRequest();
+           request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+           request.setMethod('GET');// sending request to get information from Url
+
+           
+            // HTTP (ara internet ortamı gibi düşünülebilir)
+            HTTP htp = new HTTP();
+            
+            // requestin cevabı için instance oluşturulmalı
+            // bir request gönderilecekse send ile gönderilmeli
+            //this instance using for to get Response from Url Based Request sent
+            HttpResponse reponse = new HttpResponse();
+            reponse = htp.send(request);
+            String bodyJSON = reponse.getBody(); // response ın body si alınır           
+            
+            Map<String,Object> getBodyJSON = (Map<String,Object>)JSON.deserializeUntyped(bodyJSON);
+            
+            if(reponse.getStatusCode() == 200){
+                System.debug(getBodyJSON);  
+
+                //içindekileri tek tek görmek için 1.yol(tailhead ten)
+                    // https://sforce.co/3NSYo7V
+                    // List<Object> animm = (List<Object>) getBodyJSON.get('animals'); //animals: URL'deki string
+                    //    System.debug(animm);
+                    // System.debug('Received the following animals:');
+                    // for(Object animal : animm){
+                    //     System.debug(animal);
+                    // }
+
+
+                //içindekileri tek tek görmek için 2.yol
+                // String str = getBodyJSON.get('animals').toString();
+                // for(String s : str.split(',')){
+                //     System.debug(s);
+                // }
+                    
+              
+            }                                                                     
+        }    
+
+        //Post Method
+    public static void postRecord(){        
+        
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://th-apex-http-callout.herokuapp.com/animals');
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        // Set the body as a JSON object
+        request.setBody('{"name":"Monkey"}');
+        
+        Http http = new Http();
+
+        HttpResponse response = new HttpResponse();
+        response = http.send(request);
+
+
+        // Parse the JSON response
+        if(response.getStatusCode() == 201) {
+            System.debug(response.getBody());
+        } else {
+            System.debug('The status code returned was not expected: ' + response.getStatusCode() + ' ' + response.getStatus());
+        }
+    }
+
+    }
+

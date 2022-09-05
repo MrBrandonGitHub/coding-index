@@ -1,0 +1,11 @@
+import { LightningElement, wire } from 'lwc';
+//Step 1: import Apex method
+import getRecords from '@salesforce/apex/getAllAccountsRecords.getRecords';
+
+export default class WireAProperty extends LightningElement {
+    //Step 2: wire function execute when page loads
+    @wire(getRecords) acc; // herhangi isim olabilir bu variable. 
+    // it will return 2 objects{data, Error}
+    // Positive: 10 Accounts ==> data(10 Account Records), error (blank)
+    // Negative it vill error ==> Error(Error Message), data(blank)
+}

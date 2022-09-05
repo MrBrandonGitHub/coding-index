@@ -1,0 +1,23 @@
+import { LightningElement, api } from 'lwc';
+import { ShowToastEvent} from "lightning/platformShowToastEvent";
+
+import  NAME_FIELD  from '@salesforce/schema/DevStars__c.Name';
+import  LEVEL_FIELD  from '@salesforce/schema/DevStars__c.Level__c';
+import  EMAIL_FIELD  from '@salesforce/schema/DevStars__c.Email__c';
+
+export default class RecordFormDevStars extends LightningElement {
+    @api objectApiName;
+    @api recordId;
+    devStarsFields =[ NAME_FIELD,  LEVEL_FIELD, EMAIL_FIELD ];
+    
+
+    errorHandler(event){
+        const evnt = new ShowToastEvent({ title:'Record Status', message:'The record could not be saved', variant:'error'});
+        this.dispatchEvent(evnt);
+    }
+
+    successHandler(event){
+        const evnt = new ShowToastEvent({title:'Record Status', message: 'The record has been succesfully saved', variant:'success'});
+        this.dispatchEvent(evnt);
+    }
+}

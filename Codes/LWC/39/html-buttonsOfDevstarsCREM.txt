@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Update DevStars" >
+        <lightning-input 
+            label="Country Of Çekirge" 
+            placeholder="Enter Country of the Çekirge"             
+            onchange={changeHandler} >
+        </lightning-input>
+ 
+     <br/>
+     <lightning-button 
+        label="Update" 
+        variant="brand" 
+        onclick={updateHandler}
+        >
+    </lightning-button>
+
+    <lightning-card title="Delete DevStars">
+        <lightning-button 
+            label="Delete" 
+            variant="brand" 
+            title="Delete" 
+            onclick={deleteHandler}>
+        </lightning-button>
+    </lightning-card>
+    </lightning-card> 
+ </template>

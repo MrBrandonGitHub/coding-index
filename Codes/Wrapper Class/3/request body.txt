@@ -1,0 +1,13 @@
+
+{
+    "accObj": {
+      "name": "test Vishal",
+      "rating": "Hot",
+      "industry": "Banking",
+      "website" : "www.google.com"
+    },
+    "conObj": {
+      "firstName": "test Contact",
+      "lastName": "test"
+    }
+}

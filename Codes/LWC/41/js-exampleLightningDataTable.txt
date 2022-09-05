@@ -1,0 +1,30 @@
+import { LightningElement, wire } from 'lwc';
+import getAllAccount from '@salesforce/apex/accountHandlerDataTable.getAllAccount';
+
+export default class ExampleLightningDataTable extends LightningElement {
+
+    accountData;
+    dynamicAccountName;
+    accountColumns = [
+        {label: 'Account Name', fieldName:'Name'},
+        {label: 'Rating', fieldName:'Rating'},
+        {label: 'Industry', fieldName:'Industry'},
+        {label: 'Phone', fieldName:'Phone', type: 'phone'},
+        {label: 'Website', fieldName:'Website', type: 'url'}
+    ];
+
+    changeHandler(event){
+        //this.dynamicAccountName = '%' + event.target.value + '%';
+        this.dynamicAccountName = event.target.value;
+    }
+
+
+
+    @wire(getAllAccount, {strName: '$dynamicAccountName'}) getObj({data, error}){
+        if(data){
+            this.accountData = data;           
+        }else if(error){
+            console.log(error);
+        }
+    }
+}

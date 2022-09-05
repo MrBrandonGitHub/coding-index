@@ -1,0 +1,36 @@
+global with sharing class OpportunitySchedulableApex Implements Schedulable, Database.Batchable<sObject>{
+
+    global void execute(SchedulableContext sc) {
+    Database.executeBatch(this);
+}
+
+global database.queryLocator start(Database.BatchableContext BC) {
+    return database.getQueryLocator([SELECT id, StageName from Opportunity WHERE StageName != 'Closed Won' and StageName != 'Closed Lost' and LastModifiedDate < LAST_N_DAYS : 7]);
+} 
+global void execute(Database.BatchableContext BC, list <Opportunity> scope) {
+
+    List <Task> taskList = new List<Task>();
+  
+    for(Opportunity opp : scope) {
+        
+            Task tsk             = new Task();
+
+            tsk.OwnerId          = opp.OwnerId;            
+            tsk.WhatId           = opp.AccountId;
+            if(opp.CloseDate <= date.today()){
+                tsk.ActivityDate = System.today();
+            }else{
+                tsk.ActivityDate = opp.CloseDate.addDays(-2);
+            }
+            tsk.Status           = 'In progress';           
+            tsk.Subject          = System.label.subject;
+            tsk.Description      = System.label.Description;                      
+            taskList.add(tsk);
+    }     
+        insert taskList;    
+} 
+global void finish(Database.BatchableContext BC) {
+
+
+} 
+}

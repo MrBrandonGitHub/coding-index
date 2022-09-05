@@ -1,0 +1,15 @@
+{
+    "acc":{
+        "name" : "test Account",
+        "website" : "www.google.com"
+    },
+    "con" : {
+        "firstName" : "soft",
+        "lastName"  : "Innovas"
+    },
+    "opp" : {
+        "name" : "test Opp",
+        "stageName" : "Prospect",
+        "closedDate" : "2021-02-02"
+    }
+}

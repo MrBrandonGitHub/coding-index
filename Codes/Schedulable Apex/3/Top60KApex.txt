@@ -1,0 +1,7 @@
+
+// schedule için(cron ile)
+Top60KBatchSchedulable cls = new Top60KBatchSchedulable(); // Schedulable class tan çekilecek. Batch class tan değil
+String strCron = '0 0 12 ? * MON,TUE *';
+id jobID = system.schedule('Top60K Info Update', strCron, cls);
+
+

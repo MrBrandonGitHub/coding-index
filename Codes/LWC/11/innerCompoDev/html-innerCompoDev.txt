@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Developer Part">
+        <div class="slds-p-around_medium">
+            <p>Title: {title}</p>
+            <p>Salary: <mark>{salary}</mark></p>
+            <p>Certificate: {certificate}</p>
+        </div>
+    </lightning-card>
+</template>

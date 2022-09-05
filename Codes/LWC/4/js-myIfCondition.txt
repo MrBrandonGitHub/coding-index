@@ -1,0 +1,11 @@
+import { LightningElement } from 'lwc';
+
+export default class MyIfCondition extends LightningElement {
+
+    checkBoxValue = false;
+
+    changeHandler(event){
+        this.checkBoxValue = event.target.checked; // true
+        
+    }
+}

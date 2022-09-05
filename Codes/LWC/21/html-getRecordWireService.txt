@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="WIRE SERVICE">
+        <p>Account Name: {accName}</p>
+        <p>Account Rating: {accRating}</p>
+        <p>Account Industry: {accIndustry} </p>
+        <p>Acoount Phone: {accPhone}</p>
+    </lightning-card>
+</template>

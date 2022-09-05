@@ -1,0 +1,40 @@
+import { LightningElement } from 'lwc';
+
+
+// // button a tıkladığında lightning input belirir. ama tekrar yok olmaz
+// export default class RenderedCallback extends LightningElement {
+    
+//     isVisible = false;
+
+//     clickMethod(event){
+//         this.isVisible = true;
+//     }
+
+//     renderedCallback(){
+//         console.log('-----renderedcallback fired-----');
+//     }
+// }
+
+// button a tıkladığında lightning input belirir. buttona tekrar basınca lightning input yok olur. ve döngü olur. belirir-yok olur döngüsü
+export default class RenderedCallback extends LightningElement {
+    
+    isVisible = false;
+
+    clickMethod(event){
+        this.isVisible = this.isVisible == true ? false : true;
+        // this.isVisible = this.isVisible == true ? 11 : 22; olsa idi 
+        // consolda 22 gözükecekti. false eşit değildir true. o zaman doğru(11) yanlış(22) olduğu için consolda 22 gözükecek
+    }
+
+    renderedCallback(){
+        console.log('-----renderedcallback fired-----');
+    }
+}
+
+// AÇIKLAMA: ternary operator
+// var xyz = 2>5 ? 'Hello' : 'Hi';
+
+// xyz adında bir variable
+// eğer 2, 5 den büyükse xyz = 'Hello';
+// eğer 2, 5 ten küçükse xyz = 'Hi';
+// syntax ==>  condition ? true : false;

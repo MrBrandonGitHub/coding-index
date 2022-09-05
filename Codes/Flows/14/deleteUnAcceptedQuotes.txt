@@ -1,0 +1,47 @@
+public class deleteUnAcceptedQuotes{
+    @InvocableMethod //flowdan çağrıldığında invocable kullanılır
+//Çok fazla invokable kullanılacaksa anlaşılır olsun diye şöyle etiketleme yapılabilir (label='Delete Quotes' description='Sample Desc' category='Opportunity') //Bu şekilde yazılırsa flowda action kısmındaki görünümünde Delete Quotes şeklinde gözükür. ayrıca yine aynı sayfada kategory kısmında Opportunity şeklinde de gözükür  
+   public static void deleteQuotes(List<Request> lstRequest){
+        List<Quote> lstQuotes = new List<Quote>();
+        Set<Id> setOfOpportunityId = new Set<Id>();
+        for(Request req : lstRequest){
+            setOfOpportunityId.add(req.Opp_Record_Id);  
+        }
+        if(setOfOpportunityId != null && setOfOpportunityId.size() > 0){
+            lstQuotes = [SELECT id FROM Quote WHERE OpportunityId IN :setOfOpportunityId AND Status != 'Accepted'];
+            delete lstQuotes;
+        }
+   }
+   
+   
+   Public Class Request{ // wrapper class oluşturuldu
+       @InvocableVariable
+       public Id Opp_Record_Id;
+
+       @InvocableVariable  // parametreler böyle alt alta eklenir annotation ile
+       public String Opp_Record_Name;
+   }
+}
+
+----------------------------
+
+// Tek parametreli olsa idi şu şekilde de yapılabilirdi
+public class deleteUnAcceptedQuotes {
+    @InvocableMethod //(label='Delete Quotes' description='Sample Desc' category='Opportunity')
+   public static void deleteQuotes(List<Id> lstRequest){
+        List<Quote> lstQuotes = new List<Quote>();
+        Set<Id> setOfOpportunityId = new Set<Id>();
+        for(Id req : lstRequest){
+            setOfOpportunityId.add(req);  
+        }
+        if(setOfOpportunityId != null && setOfOpportunityId.size() > 0){
+            lstQuotes = [SELECT id FROM Quote WHERE OpportunityId IN :setOfOpportunityId AND Status != 'Accepted'];
+            delete lstQuotes;
+        }
+   }   
+   
+//    Public Class Request{
+//       @InvocableVariable
+//        public Id Opp_Record_Id;
+//    }
+}

@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Child Method Demo1">
+        <div class="slds-p-around_medium">
+            <p>Hello, {firstName} {lastName} : {address}</p>
+        </div>
+    </lightning-card>
+</template>

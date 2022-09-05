@@ -1,0 +1,6 @@
+import { LightningElement, api } from 'lwc';
+import OBJECT from '@salesforce/schema/Opportunity';
+export default class RecordViewForm extends LightningElement {
+    objectApiName = OBJECT;
+     @api recordId;    
+}

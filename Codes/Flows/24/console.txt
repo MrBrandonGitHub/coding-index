@@ -1,0 +1,4 @@
+Send_Mail_Event__e event = new Send_Mail_Event__e();
+event.Name__c = 'abc';
+
+EventBus.publish(event); // insert ===> Platform Event will fire

@@ -1,0 +1,10 @@
+import { LightningElement } from 'lwc';
+
+export default class FamousPeople extends LightningElement {
+    contacts = [
+            {name:"Jef Bezos", title:"Executive Chariman", company:"Amazon", stay:"US"},
+            {name:"Sundar Pichai", title:"Chief Executive Offices", company:"Google", stay:"US"},
+            {name:"Tim Cook", title:"Chief Executive Offices", company:"Apple", stay:"US"},
+            {name:"Mark Zuckerberg", title:"Chief Executive Offices", company:"Facebook", stay:"US"}
+    ]
+}

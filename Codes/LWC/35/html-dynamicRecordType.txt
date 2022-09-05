@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="All RECORD TYPES PICKLIST VALUES" >
+        <lightning-combobox 
+            label="Account Record Type" 
+            options={options} 
+            value={value}
+            >
+        </lightning-combobox>
+    </lightning-card>
+</template>

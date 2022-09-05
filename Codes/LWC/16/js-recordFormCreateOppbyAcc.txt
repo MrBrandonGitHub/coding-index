@@ -1,0 +1,46 @@
+import { LightningElement, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+import OPPORTUNITY_OBJ from '@salesforce/schema/Opportunity';
+import OPPORTUNITY_NAME from '@salesforce/schema/Opportunity.Name';
+import OPPORTUNITY_STAGE from '@salesforce/schema/Opportunity.StageName';
+import OPPORTUNITY_CLOSEDATE from '@salesforce/schema/Opportunity.CloseDate';
+
+export default class RecordFormCreateOppbyAcc extends LightningElement {
+    objectApiName = OPPORTUNITY_OBJ;
+    @api recordId;
+    // ya da böyle yazılır myfields = ['Name','StageName','CloseDate'];
+    myfields = [OPPORTUNITY_NAME, OPPORTUNITY_STAGE, OPPORTUNITY_CLOSEDATE]
+   
+
+    errorHandler(event){
+        const evt = new ShowToastEvent({
+            title: 'Account Record Status',
+            message: 'Error',
+            variant: 'error',
+        });
+        this.dispatchEvent(evt);
+    }
+    
+    loadHandler(event){
+        //alert('----Load---');
+    }
+    
+    submitHandler(event){
+        event.preventDefault(); // submit prosesi durduracak
+        const allFields = event.detail.fields;
+        allFields.AccountId = this.recordId;
+        this.template.querySelector('Lightning-record-form').submit(allFields); // güncel haliyle submit edilecek
+    }
+    
+    succesHandler(event){
+        const evt = new ShowToastEvent({
+            title: 'Account Record Status',
+            message: 'Succesfully',
+            variant: 'success',
+        });
+        this.dispatchEvent(evt);
+    }
+    
+}
+

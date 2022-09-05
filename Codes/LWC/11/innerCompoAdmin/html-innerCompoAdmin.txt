@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Admin Part">
+        <div class="slds-p-around_medium">
+	    <lightning-avatar src="https://www.lightningdesignsystem.com/assets/images/avatar2.jpg"></lightning-avatar>
+            <p>Title: {title}</p>
+            <p>Salary: <mark>{salary}</mark></p>
+            <p>Certificate: {certificate}</p>
+        </div>
+    </lightning-card>
+</template>

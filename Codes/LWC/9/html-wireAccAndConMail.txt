@@ -1,0 +1,45 @@
+<template>
+    <lightning-card title="com Of Account and Contact">
+        <template if:true={conList}>
+            <table class="slds-table             
+                        slds-table_cell-buffer 
+                        slds-table_bordered 
+                        slds-table_col-bordered 
+                        slds-table_striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Web/Email</th>                    
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <template 
+                        for:each={accList} 
+                        for:item="each">
+                        <tr key={each}>
+                            <td>{each.Id}</td>
+                            <td>{each.Name}</td>
+                            <td>{each.Website}</td>                        
+                        </tr>
+                    </template>
+                    
+                    <template 
+                        for:each={conList} 
+                        for:item="each">
+                        <tr key={each}>
+                            <td>{each.Id}</td>
+                            <td>{each.Name}</td>
+                            <td>{each.Email}</td>                        
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+
+        <template if:true={error}>
+            Error Message: {error.body.message}
+        </template>
+    </lightning-card>
+</template>

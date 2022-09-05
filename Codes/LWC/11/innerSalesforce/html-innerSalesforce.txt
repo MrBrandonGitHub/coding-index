@@ -1,0 +1,11 @@
+<template>
+    <lightning-card  title="SALESFORCE PARTS">
+        <c-inner-compo-admin class="slds-text-align_center">
+            
+        </c-inner-compo-admin>
+
+        <c-inner-compo-dev>
+
+        </c-inner-compo-Dev>        
+    </lightning-card>           
+</template>

@@ -1,0 +1,41 @@
+public with sharing class sendDataGoCallout {
+@future(callout=true)
+    public static void sendDataGo(List<id> contactIds){
+        List<Contact> con = [SELECT Name, Email, Gender__c, Status__c FROM Contact WHERE Id =: contactIds[0]  ];
+        
+        UserInfo info = new UserInfo();
+        info.name = con[0].Name;
+        info.email = con[0].Email;
+        info.gender = con[0].Gender__c;
+        info.status = con[0].Status__c;
+
+        String jsonString = JSON.serialize(info);
+        system.debug('jsonString: ' + jsonString);
+
+        string endPoint = 'https://gorest.co.in/public/v2/users';
+        string token = 'b86cbb5ef6cb100ad3b8cca420e7c17a5ae051a3cd29183396d4957d050196cc';
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(endPoint);
+        request.setMethod('POST');
+        request.SetBody(jsonString);
+        request.setHeader('Content-Type', 'application/json; charset=utf-8');
+        request.setHeader('Authorization', 'Bearer ' + token);
+
+
+        Http http = new Http();
+
+
+        HttpResponse response = new HttpResponse();
+        response = http.send(request);
+        System.debug('Status Code ' + response.getStatusCode());
+        System.debug('Response Body: ' + response.getBody() );
+
+        if(response.getStatusCode()==201){
+            CommonUtilities.createLog('Success','ContactCallouts.sendData', 'Integration', response.getStatus(), response.getBody());
+        } else{
+            CommonUtilities.createLog('Error', 'ContactCallouts.sendData', 'Integration', response.getStatus(), response.getBody());
+        }
+
+    }
+}

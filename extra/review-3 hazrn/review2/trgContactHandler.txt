@@ -1,0 +1,18 @@
+public class trgContactHandler {
+    public static void afterInsert(List<Contact> newContact){
+        Set<Id> setOfId = new Set<Id>();// To store Account Id
+        List<Account> lstAccount = new List<Account>();// DO soql Query
+        for(Contact con : newContact){
+            if(con.AccountId != null){
+                setOfId.add(con.AccountId);
+            }
+        }
+        if(setOfId != null && setOfId.size() > 0){
+            lstAccount = [SELECT Id, Total_Number_OF_Contact__c,(SELECT Id FROM Contacts) FROM Account WHERE Id IN : setOfId];
+            for(Account acc : lstAccount){
+                acc.Total_Number_OF_Contact__c = acc.Contacts.size();
+            }
+            update lstAccount;
+        }
+    }
+}

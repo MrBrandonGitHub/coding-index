@@ -1,0 +1,154 @@
+@RestResource(urlMapping='/DevStars/')
+
+global class devStarsInboundIntegration {
+    // ====>>> GET <<<====
+    //1: DevStars ta kimler var? (endPoint = )
+    // @HttpGet
+    // global static List<DevStars__c> getRecord(){
+
+    //     List<DevStars__c> lstDevStars = new List<DevStars__c>();        
+    //     lstDevStars = [SELECT Id,Name, Country__c FROM DevStars__c];
+        
+    //     return lstDevStars;
+    // }
+
+    //2: DevStars ta kimler junior kimler senior? (endPoint = /services/apexrest/DevStars/?Level__c=Senior )
+    // @HttpGet
+    // global static List<DevStars__c> getRecord(){
+
+    //     List<DevStars__c> lstDevStars = new List<DevStars__c>();
+    //     Map<String,String> paramsValue = RestContext.request.params;
+    //     lstDevStars = [SELECT Id,Name, Level__c FROM DevStars__c Where Level__c =: paramsValue.get('Level__c')];
+        
+    //     return lstDevStars;
+    // }
+
+    //3: DevStars ta kimler Senior ve UK'de (endPoint = /services/apexrest/DevStars/?Level__c=Senior&&Country__c=UK)
+    // @HttpGet
+    // global static List<DevStars__c> getRecord(){
+
+    //     List<DevStars__c> lstDevStars = new List<DevStars__c>();
+    //     Map<String,String> paramsValue = RestContext.request.params;
+    //     lstDevStars = [SELECT Id,Name, Level__c FROM DevStars__c WHERE Level__c =: paramsValue.get('Level__c') AND Country__c =: paramsValue.get('Country__c') ];
+        
+    //     return lstDevStars;
+    // }
+
+    //4: DevStars ta kimler hem Remote hem de On-Site çalışmak istiyor? (endPoint = /services/apexrest/DevStars/?Job__c=Remote;On-Site )
+    // @HttpGet
+    // global static List<DevStars__c> getRecord(){
+
+    //     List<DevStars__c> lstDevStars = new List<DevStars__c>();
+    //     Map<String,String> paramsValue = RestContext.request.params;
+    //     lstDevStars = [SELECT Id,Name, Job__c FROM DevStars__c WHERE Job__c =: paramsValue.get('Job__c')];
+        
+    //     return lstDevStars;
+    // }
+
+    //5: DevStarsta kimler 180.000 euro üstü maaaş istiyor? (endPoint = /services/apexrest/DevStars/?Salary_Expectation__c=180000 )
+    //(endpoint te büyük küçük işarettleri kullanılmaz. o işaretler VS Code'ta yazılır)
+    // @HttpGet
+    // global static List<DevStars__c> getRecord(){
+
+    //     List<DevStars__c> lstDevStars = new List<DevStars__c>();
+    //     Map<String,String> paramsValue = RestContext.request.params;
+
+    //     Decimal strSalary =(Decimal)JSON.deserialize(paramsValue.get('Salary_Expectation__c'), Decimal.class);//Strıng-->Object---> Decımal
+    //     lstDevStars = [SELECT Id,Name, Salary_Expectation__c FROM DevStars__c WHERE Salary_Expectation__c >: strSalary];
+    
+    //     return lstDevStars;
+    // }
+
+    
+
+    //  ====>>> DELETE <<<====
+    //1: DevStars ta Yabancı Cisim i sil! (endPoint = /services/apexrest/DevStars/?id=a0E8d000000VFLrEAO )
+    // @HttpDelete
+    // global static String deleteRecord(){
+
+    //     DevStars__c yabanciCisim = new DevStars__c();
+    //     Map<String,String> paramsValue = RestContext.request.params;
+    //     yabanciCisim = [ SELECT id, name FROM DevStars__c WHERE id =: paramsValue.get('id')];
+        
+    //     return 'Yabanci cisim uzaklaştirildi!!';
+    // }
+    
+
+
+    //  ====>>> POST <<<====
+        //1: DevStars a bir üye ekle (endPoint = /services/apexrest/DevStars/ )
+        // body: { "Name": "New Member", "Salutation": "Mss", "Salary": "555", "CountryRequest": "USA"}
+    
+        // (*endPoint'e fieldlar eklenip de yapılabilir. ama best practice değil)
+        // (   /services/apexrest/DevStars/?Name=New Member && Salutation=Mss && Salary=555 && CountryRequest=USA    )
+        
+        // @HttpPost
+        // global static DevStars__c insertRecord(String Name, String Salutation, Decimal Salary, String CountryRequest){
+        //     DevStars__c newDevStarsMember = new DevStars__c();
+        //     newDevStarsMember.name = Name;
+        //     newDevStarsMember.Salutation__c = Salutation;
+        //     newDevStarsMember.Salary_Expectation__c = Salary;
+        //     newDevStarsMember.Country__c = CountryRequest;
+
+        //     insert newDevStarsMember;
+        //     return newDevStarsMember;
+        // }
+
+
+        // //  ====>>> PATCH <<<====
+        //     //1: DevStars'ta Esma adlı üyenin Salary Expectation ını güncelle (endPoint = /services/apexrest/DevStars/?id=a0E8d000000VFL3EAO )
+        // body:{    "Salary": "250000"    }
+
+        //     @HttpPatch
+        //     global static DevStars__c updateRecord(Decimal Salary){
+
+        //     DevStars__c NewEsma = new DevStars__c();
+        //     Map<String,String> paramsValue = RestContext.request.params;
+            
+        //     NewEsma = [SELECT id, Name, Salary_Expectation__c FROM DevStars__c WHERE id =: paramsValue.get('id')];            
+        //     NewEsma.Salary_Expectation__c = Salary;
+            
+        //     update NewEsma;
+        //     return NewEsma;
+
+        //     }
+
+            // //2: DevStars'ta Esma adlı üyenin Level ını Senior olarak güncelle (endPoint = /services/apexrest/DevStars/?Name=Brandon )
+            // body: {    "Level": "Senior"     }
+
+            // @HttpPatch
+            // global static DevStars__c updateRecord(String Level){
+
+            // DevStars__c NewBrandon = new DevStars__c();
+            // Map<String,String> paramsValue = RestContext.request.params;
+            
+            // NewBrandon = [SELECT id, Name, Level__c FROM DevStars__c WHERE name =: paramsValue.get('Name')];            
+            // NewBrandon.Level__c = Level;
+            
+            // update NewBrandon;
+            // return NewBrandon;
+
+            // }
+
+        //  ====>>> PUT <<<====
+                //1: DevStars a 1 üye daha ekle (endPoint = /services/apexrest/DevStars/ )
+                // body: {"Name": "New Member2","Salutation": "Mss","Salary": "555000","CountryRequest": "Italy"}
+
+        //     @HttpPut
+        // global static DevStars__c upsertRecord(String Name, String Salutation, Decimal Salary, String CountryRequest){
+
+        //     DevStars__c newDevStarsMember2 = new DevStars__c();
+        //     newDevStarsMember2.name = Name;
+        //     newDevStarsMember2.Salutation__c = Salutation;
+        //     newDevStarsMember2.Salary_Expectation__c = Salary;
+        //     newDevStarsMember2.Country__c = CountryRequest;
+
+        //     // Map<String,String> paramsValue = RestContext.request.params;
+            
+        //     // newDevStarsMember2 = [SELECT id, Name, Level__c FROM DevStars__c WHERE name =: paramsValue.get('id')];
+
+        //     upsert newDevStarsMember2;
+        //     return newDevStarsMember2;
+        // }
+
+}

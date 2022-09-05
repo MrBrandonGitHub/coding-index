@@ -1,0 +1,19 @@
+<template>
+    
+    <lightning-card title="Lightning Data Table">
+        <lightning-input 
+        type="text" 
+        label="Enter Account Name"
+        onchange={changeHandler}
+        >
+
+        </lightning-input>
+        <lightning-datatable
+                key-field="id"
+                data={accountData}
+                columns={accountColumns}
+                >
+        </lightning-datatable>
+
+    </lightning-card>
+</template>

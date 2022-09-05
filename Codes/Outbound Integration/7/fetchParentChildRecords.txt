@@ -1,0 +1,66 @@
+public class fetchParentChildRecords {
+    public static void fetchInfo(){
+        
+        Http hp = new Http();
+        
+        HttpRequest req = new HttpRequest();
+        req.setMethod('GET');
+        req.setEndpoint('https://reqres.in/api/users/');
+        
+        HttpResponse res = new HttpResponse();
+        res = hp.send(req);
+        System.debug('===Respone=='+res.getBody());
+
+        if(res.getStatusCode() == 200){
+          String jsonBody = res.getBody();
+          ParentObjectWrapper allInfo = (ParentObjectWrapper) JSON.deserialize(jsonBody, ParentObjectWrapper.Class);// String -----> ParentObjectWrapper
+           Parent_Object__c parentObj = new Parent_Object__c();
+            parentObj.Name =allInfo.page;
+            parentObj.Per_Page__c = allInfo.per_page;
+            parentObj.Total__c = allInfo.total;
+            parentObj.Total_Pages__c = allInfo.total_pages;
+            parentObj.Url__c = allInfo.support.url;
+            parentObj.Description__c =allInfo.support.text;
+            insert parentObj;
+           
+            List<Child_Object__c> lstChild = new List<Child_Object__c>();        
+            for(ChildObjectWrapper obj : allInfo.data){
+                Child_Object__c childObj = new Child_Object__c();
+                childObj.Id__c = obj.id;
+                childObj.Email__c = obj.email;
+                childObj.Name = obj.first_name;
+                childObj.Last_Name__c = obj.last_name;
+                childObj.Avatar__c = '<img src="' + obj.avatar + '"></img>';
+                childObj.Parent_Object__c =parentObj.Id;
+                lstChild.add(childObj);
+            }
+            insert lstChild;
+    
+        }
+    }
+    
+    Public Class ParentObjectWrapper{ 
+        //Önce URL deki parametrelerin hepsini buraya yaz. page, per_page, total, total_pages, data, support
+        //Sonra typlerını oluştur. String, Integer, List<ChildObjectWrapper>, SupportWrapper
+        Public String page;
+        Public Integer per_page;
+        Public Integer total;
+        Public Integer total_pages;
+        Public List<ChildObjectWrapper> data;// Multiple Records
+        Public SupportWrapper support;
+    }
+   
+    
+    Public Class ChildObjectWrapper{
+        Public String id;
+        Public String email;
+        Public String first_name;
+        Public String last_name;
+        Public String avatar; 
+    }
+    
+    Public Class SupportWrapper{
+        Public String url;
+        Public String text; 
+    }           
+}

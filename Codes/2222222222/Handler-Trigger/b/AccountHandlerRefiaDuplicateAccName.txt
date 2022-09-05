@@ -1,0 +1,42 @@
+/*public with sharing class AccountHandlerRefiaDuplicateAccName {
+    public static void AccDuplicate(List<Account> lstAccNew){ // trigger başlangıcı
+        set<String> stAccNm = new set<String>(); // her girilen account un isimlerini toplayacağım set
+        for(account acc : lstAccNew){ // trigger ın başlamasıyla oluşan instance
+            stAccNm.add(acc.Name); // bu instance ların namelerini al ve set e ekle. aşağıda queryde(lstAcc) tüm accountlardan sadece bu isimdeki olanlar çekilecek
+            // 3-4 ve 5. satırdan sonra artık elimde her girilen account un sadece isimlerinin olduğu bir set hazır
+        }
+        List<Account> lstAcc = [SELECT id, name FROM Account WHERE Name=: stAccNm]; // tüm accountlardan sadece set teki isimleri olan accountları göster
+        Map<String, Account> mpAccNm = new Map<String,Account>(); // her girilecek isim ve onun account u için bir map oluşturldu
+        if(!lstAcc.isEmpty()){ // tüm accountlardan sadece set teki isimleri olan accountların listesi dolu ise
+            for(Account acc : lstAcc){ // tüm accountlardan sadece set teki isimleri olan accountların listesinden bir instance
+                mpAccNm.put(acc.Name, acc); // map'in key'i instance'ın name i olacak - value'su ise instance'ın kendisi(o kaydın tamamı) olacak
+            }
+        }
+        for(Account acc: lstAccNew){
+            if(mpAccNm.ContainsKey(acc.Name)){ // trigger ın tetiklenmesiyle hazırlanan map'teki keyler, girilen instance ı içeriyor mu?
+                acc.Name.addError('Ayni isimle account girişi yapilamaz'); // varsa hata ver
+            }
+        }
+    }
+}
+*/
+
+public with sharing class AccountHandlerRefiaDuplicateAccName {
+    public static void AccDuplicate(List<Account> lstAccNew){ 
+        set<String> stAccNm = new set<String>(); 
+        for(account acc : lstAccNew){ 
+            stAccNm.add(acc.Name);
+        }
+        List<Account> lstAcc = [SELECT id, name FROM Account WHERE Name=: stAccNm];        
+
+        set<String> listNames = new Set<String>(); // select edilmiş account ların name alanlarını set e ekledik.
+        for(Account acc2 : lstAcc){
+            listNames.add(acc2.name); // sadece name leri eklenmiş oldu
+        }
+        for(Account acc: lstAccNew){  // triggerın tetiklenmesiyle 
+            if(listNames.contains(acc.name)){  // isimlerin olduğu sette triggerdan yeni gelen yeni isimler içeriyor mu
+                acc.Name.addError('Ayni isimle account girişi yapilamaz '); 
+            }
+        }
+    }
+}

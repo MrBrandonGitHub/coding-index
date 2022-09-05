@@ -1,0 +1,90 @@
+<template>
+    <lightning-card title="Calculator">
+        <!--{num1}===={num2}-->
+        <div class="slds-p-around_medium">
+            <lightning-input 
+                label="Enter first number" 
+                type="number"  
+                required="true" 
+                placeholder="Please enter your first number"
+                onchange={firstHandler}
+                value ={num1}> 
+            </lightning-input>
+
+            <lightning-input 
+                label="Enter second number" 
+                type="number" 
+                required="true" 
+                placeholder="Please enter your second number"
+                onchange={secondHandler}
+                value = {num2}>        
+            </lightning-input>
+        <br/>
+            <lightning-input 
+                label="Result" 
+                type="number" 
+                disabled="true" 
+                placeholder="Result"
+                value = {result}>
+            </lightning-input>    
+        <br/> 
+            <template if:true={isAdd}>
+                Addition of two number : {result}
+            </template>
+
+            <template if:true={isSub}>
+                Subtraction of two number : {result}        
+            </template>
+
+            <template if:true={isDiv}>
+                Division of two number : {result}
+            </template>
+            
+            <template if:true={isMul}>
+                Multiplication of two number : {result}
+            </template>                
+        <br/>
+            <lightning-button 
+                label="Addition" 
+                class="slds-p-around_medium" 
+                title="Addition Button" 
+                variant="brand" 
+                onclick={addHandler}>
+            </lightning-button>
+
+            <lightning-button 
+                label="Subtraction" 
+                class="slds-p-around_medium" 
+                title="Subtraction Button" 
+                variant="brand" 
+                onclick={subHandler}>
+            </lightning-button>
+
+            <lightning-button 
+                label="Devide"  
+                class="slds-p-around_medium" 
+                title="Devide Button" 
+                variant="brand" 
+                onclick={divHandler}>
+            </lightning-button>
+
+            <lightning-button 
+                label="Multiplication" 
+                class="slds-p-around_medium" 
+                title="Multiplication Button" 
+                variant="brand" 
+                onclick={mulHandler}>
+            </lightning-button>
+
+            <template if:true={isRef}>
+            <lightning-button 
+                label="Reresh" 
+                class="slds-p-around_medium" 
+                title="Fresh Button" 
+                variant="brand" 
+                onclick={refHandler}>
+            </lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>

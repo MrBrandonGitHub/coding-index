@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Delete Record with help of Wire Services">
+        <lightning-button 
+            label="Delete Record" 
+            variant="brand" 
+            title="Delete Record" 
+            onclick={deleteHandler}>
+        </lightning-button>
+    </lightning-card>
+</template>

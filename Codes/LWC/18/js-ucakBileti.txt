@@ -1,0 +1,58 @@
+import { LightningElement } from 'lwc';
+
+export default class UcakBileti extends LightningElement {
+    nereden;
+    nereye;
+    gidiş;
+    dönüş;
+    numberPassenger;
+
+    neredenMethod(event){
+        this.nereden = event.target.value;
+    }
+
+    nereyeMethod(event){
+        this.nereye = event.target.value;
+    }
+
+    gidişMethod(event){
+        this.gidiş = event.target.value;
+    }
+
+    dönüşMethod(event){
+        this.dönüş = event.target.value;
+    }
+
+    numberPassMethod(event){
+        this.numberPassenger = event.target.value;
+    }
+
+
+
+
+    value = 'Economy';
+
+    get optionTercih() {
+        return [
+            { label: 'Economy', value: 'Economy' },
+            { label: 'Business', value: 'Business' },
+            { label: 'Luxury', value: 'Luxury' },
+        ];
+    }
+
+    handleChange(event) {
+        this.value = event.detail.value;
+    }
+
+    get calcPrice(){
+        return this.numberPassenger*500;
+    }
+
+    get gitGelBirleşik(){
+        return (this.nereden + ' - ' +this.nereye);
+    }
+
+
+
+
+}

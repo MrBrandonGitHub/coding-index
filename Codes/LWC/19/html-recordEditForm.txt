@@ -1,0 +1,34 @@
+<template>
+    <lightning-card title="Lightning Record EDIT FORM">
+
+        <lightning-record-edit-form 
+            object-api-name={objectApiName}
+            record-id={recordId}
+            onerror={errorHandler}
+            onload={loadHandler}
+            onsucces={submitHandler}
+            onsuccess={successHandler}
+            >
+                <lightning-input-field field-name="Name"></lightning-input-field>
+                <lightning-input-field field-name="Rating"></lightning-input-field>
+                <lightning-input-field field-name="Industry"></lightning-input-field>
+                <lightning-input-field field-name="Phone"></lightning-input-field>
+                <lightning-button label="Save" type="submit" variant="brand"></lightning-button>
+        </lightning-record-edit-form>
+
+    </lightning-card>
+    
+</template>
+<!--
+    record edit formda ==> lightning-input-field kullanılır. lightning-input değil. ve bu fieldlar objectteki fieldlarla aynı olmak zorunda
+-->
+
+<!-- 
+        lightning record form ==> fields, layout-type 
+
+        lightning record view ==> lightning-output-field tag
+
+        lighning record edit form ==> lightnig-input-field
+
+        outfield larda değişiklik yapılamaz. sadece datayı gösterir
+    -->

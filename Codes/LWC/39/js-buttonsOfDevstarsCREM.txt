@@ -1,0 +1,73 @@
+import { LightningElement, api} from 'lwc';
+import { updateRecord } from 'lightning/uiRecordApi';
+import { deleteRecord } from 'lightning/uiRecordApi';
+import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+import DEVSTARS_OBJ from '@salesforce/schema/DevStars__c';
+import DEVSTARS_ID from '@salesforce/schema/DevStars__c.Id';
+import LEVEL_FIELD from '@salesforce/schema/DevStars__c.Level__c';
+import COUNTRY_FIELD from '@salesforce/schema/DevStars__c.Country__c';
+import SALARY_FIELD from '@salesforce/schema/DevStars__c.Salary_Expectation__c';
+
+export default class ButtonsOfDevstarsCREM extends NavigationMixin(LightningElement) {
+
+    level;
+    country;
+    salary;
+    @api recordId;
+    
+
+    changeHandler(event){
+        this.country = event.target.value;
+    }
+
+    updateHandler(){
+        let fields ={};
+        fields[DEVSTARS_ID.fieldApiName] = this.recordId;
+        fields[COUNTRY_FIELD.fieldApiName] = this.country;
+
+        let recordInput = {
+            fields
+        };
+
+        updateRecord(recordInput)
+        .then(result=>{
+            alert('-Success--');
+        }).catch(error=>{
+            alert(error.body.message);
+        });
+    }
+
+    deleteHandler(event){
+
+        deleteRecord(this.recordId)
+            .then(record=>{
+
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__objectPage',
+                    attributes: {
+                        objectApiName: 'DevStars__c',
+                        actionName: 'home'
+                    }
+                });
+
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Record deleted',
+                        variant: 'success'
+                    })
+                );
+            })
+            .catch(error=>{
+                //Toast Message
+                const evt = new ShowToastEvent({
+                    title: "DevStars Record Status",
+                    message: "Error",
+                    variant: "error"
+                })
+                this.dispatchEvent(evt);
+            });
+    }  
+}

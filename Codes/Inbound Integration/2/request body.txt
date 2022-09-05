@@ -1,0 +1,4 @@
+post için body:
+(get için body olmaz)
+
+{"Name" :"Test New Records","Rating" : "Hot","Industry" : "Banking","Phone" : "1234567890"}

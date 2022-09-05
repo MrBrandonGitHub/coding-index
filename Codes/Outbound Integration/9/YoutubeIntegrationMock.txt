@@ -1,0 +1,13 @@
+@isTest global with sharing class YoutubeIntegrationMock implements HttpCalloutMock {
+
+    global HTTPResponse respond(HTTPRequest request) {
+
+        HttpResponse response = new HttpResponse(); 
+        response.setHeader('Content-Type', 'application/json');
+        
+        response.setBody('{"kind":"youtube#videoListResponse","etag":"C4H9TNjeFDiEesTbs_cdqg3OU5s","items":[{"kind":"youtube#video","etag":"L2FfIF-MS1llGPAxtE8FX908i5k","id":"7wm1msX1xto","statistics":{"viewCount":"3732885","likeCount":"30848","favoriteCount":"0","commentCount":"821"}}],"pageInfo":{"totalResults":1,"resultsPerPage":1}}');
+
+        response.setStatusCode(200);
+        return response; 
+    }
+}

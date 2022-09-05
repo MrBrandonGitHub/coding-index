@@ -1,0 +1,43 @@
+@isTest
+public with sharing class SFProjectFutureTEST {
+    @TestSetup // testin içinde üreteceğimiz datayı yap. ortak data üretilecek. aşağıdaki metotlarda çağrılacak
+    public static void makeData(){
+        List<Salesforce_Project__c> sfpList = new List<Salesforce_Project__c>();
+        for(integer i=0 ; i<200 ; i++){
+            Salesforce_Project__c sfp = new Salesforce_Project__c();
+            sfp.Project_Name__c = 'Future Project';
+            sfp.status__c = 'New';
+            sfpList.add(sfp);
+        }
+        insert sfpList;
+
+        List<Salesforce_Ticket__c> ticketList = new List<Salesforce_Ticket__c>();
+            for(Salesforce_Project__c sfp : sfpList){
+            Salesforce_Ticket__c sft = new Salesforce_Ticket__c();
+            sft.Salesforce_Project__c = sfp.id;
+            sft.Subject__c = 'deneme';
+            ticketList.add(sft);
+            }
+        insert ticketList;               
+    }
+
+@isTest
+    public static void SFProjectFutureTESTMethod() {
+        List<Salesforce_Project__c> sfList = [SELECT id, Status__c from Salesforce_Project__c Where Status__c !='Completed'];
+        
+        Test.startTest();
+        for(Salesforce_Project__c sfp : sfList ){
+            sfp.Project_Name__c = 'deneme';
+            sfp.status__c = 'Completed';            
+        }
+        update sfList;
+        Test.stopTest();
+
+        for(Salesforce_Ticket__c sft : [SELECT id, Status__C from Salesforce_Ticket__c]){
+            system.assertEquals('completed', sft.Status__C);
+        }
+
+
+
+    }
+}

@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Lightning Tree Grid">
+        <lightning-tree-grid            
+            columns={gridColumns}
+            data={gridData}
+            key-field="Id"
+            >
+        </lightning-tree-grid>
+    </lightning-card>
+</template>

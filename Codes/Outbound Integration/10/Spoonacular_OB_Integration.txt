@@ -1,0 +1,64 @@
+public class Spoonacular_OB_Integration {
+    private static String endPointApi = 'https://api.spoonacular.com';
+    private static String apiKey= 'caf77431593b41bc9cd9d4f08c66a861';
+
+    public static void getRandomRecipe() {
+      
+
+        Http hp=new Http();
+
+        HttpRequest req= new HttpRequest();
+        //req.setEndpoint('https://api.spoonacular.com/recipes/random'); at this point we got 401 code, unauthorised client error
+        req.setEndpoint(endPointApi + '/recipes/random?apiKey='+ apiKey) ;
+        req.setMethod('GET');
+
+        HttpResponse res = hp.send(req);
+        //request basarili dondu ise JSON metnini parse et.
+        system.debug('response code'+res.getStatusCode());
+        if(res.getStatusCode() ==200){
+            system.debug('response::' +res.getBody()); // 
+        }
+
+    }
+  
+    public static void getRecipe(String recipeId) {
+      
+
+        Http hp=new Http();
+
+        HttpRequest req= new HttpRequest();
+        //https://api.spoonacular.com/recipes/{id}/information
+        req.setEndpoint (endPointApi+'/recipes/'+recipeId+'/information?apiKey='+apiKey);
+        req.setMethod('GET');
+
+        HttpResponse res = hp.send(req);
+        //request basarili dondu ise JSON metnini parse et.
+        system.debug('response code'+res.getStatusCode());
+        if(res.getStatusCode() ==200){
+            system.debug('response::' +res.getBody()); // 
+        }
+    }
+    public static void getRecipeByIngredient(String ingred) {
+      
+
+        Http hp=new Http();
+
+        HttpRequest req= new HttpRequest();
+        //https://api.spoonacular.com/recipes/findByIngredients
+        req.setEndpoint(endPointApi + '/recipes/'+'findByIngredients?apiKey='+ apiKey+'&ingredients='+ingred) ;
+        req.setMethod('GET');
+
+        HttpResponse res = hp.send(req);
+        //request basarili dondu ise JSON metnini parse et.
+        system.debug('response code'+res.getStatusCode());
+        if(res.getStatusCode() ==200){
+            system.debug('response::' +res.getBody()); // 
+            String jsonBody= res.getBody();
+           
+        }
+
+    }
+
+
+  
+}

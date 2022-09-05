@@ -1,0 +1,40 @@
+import { api, LightningElement } from 'lwc';
+import { deleteRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
+
+
+export default class DeleteWireService extends NavigationMixin(LightningElement) {
+    @api recordId;
+    deleteHandler(event){
+
+        deleteRecord(this.recordId)
+            .then(record=>{
+
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__objectPage',
+                    attributes: {
+                        objectApiName: 'Contact',
+                        actionName: 'home'
+                    }
+                });
+
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Record deleted',
+                        variant: 'success'
+                    })
+                );
+            })
+            .catch(error=>{
+                //Toast Message
+                const evt = new ShowToastEvent({
+                    title: "Account Record Status",
+                    message: "Error",
+                    variant: "error"
+                })
+                this.dispatchEvent(evt);
+            });
+    }  
+}

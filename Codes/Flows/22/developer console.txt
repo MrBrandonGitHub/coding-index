@@ -1,0 +1,4 @@
+Notification_Event__e event = new Notification_Event__e();
+event.Source__c = 'Heroku';
+event.Message__c = 'Hello everyone';
+EventBus.publish(event); // insert ===> Platform Event will fire

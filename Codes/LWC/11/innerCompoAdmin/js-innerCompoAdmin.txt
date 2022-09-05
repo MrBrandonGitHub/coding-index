@@ -1,0 +1,7 @@
+import { LightningElement } from 'lwc';
+
+export default class InnerCompoAdmin extends LightningElement {
+    title = 'Administrator';
+    salary = '80-100';
+    certificate = 'Administrator Cert';
+}

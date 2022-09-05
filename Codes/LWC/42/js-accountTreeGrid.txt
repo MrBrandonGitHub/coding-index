@@ -1,0 +1,27 @@
+import { LightningElement, wire } from 'lwc';
+import getAllRecords from '@salesforce/apex/accountTreeHandler.getAllRecords';
+
+export default class AccountTreeGrid extends LightningElement {
+    gridData;
+    gridColumns = [
+        {label:'Account Name', fieldName:'Name'},
+        {label:'Acccount Rating', fieldName:'Rating'},
+        {label:'First Name', fieldName:'FirstName'},
+        {label:'Last Name', fieldName:'LastName'}
+    ];
+
+    @wire(getAllRecords) getObj({data, error}){
+        if(data){
+
+            let tempData = JSON.parse(JSON.stringify(data));
+
+            for(let i=0;i<tempData.length; i++){
+                tempData[i]['_children'] = tempData[i]['Contacts'];
+                delete tempData[i]['Contacts'];
+            }
+            this.gridData = tempData;
+        }else if(error){
+            
+        }
+    }
+}

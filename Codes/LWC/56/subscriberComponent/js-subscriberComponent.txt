@@ -1,0 +1,40 @@
+import { LightningElement, wire } from "lwc";
+
+//1. Import all the named imports
+
+import { subscribe, unsubscribe, MessageContext } from "lightning/messageService";
+import ACCOUNT_CHANNEL from "@salesforce/messageChannel/messageTransfer__c";
+
+export default class SubscriberComponent extends LightningElement {
+  //2. Wiring MessageContext to a property
+  @wire(MessageContext)
+  messageContext;
+
+  receivedMessage;
+  subscription = null;
+  // Subscribing By default
+  connectedCallback() {
+    console.log("in handle subscribe");
+    if (this.subscription) {
+      return;
+    }
+
+    //4. Subscribing to the message channel
+    this.subscription = subscribe(
+      this.messageContext,
+      ACCOUNT_CHANNEL,
+      (message) => {
+        this.handleMessage(message);
+      }
+    );
+  }
+
+  handleMessage(message) {
+    console.log('message');
+    console.log(message);
+    this.receivedMessage = message.str;
+  }
+
+  
+
+}

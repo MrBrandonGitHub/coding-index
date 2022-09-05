@@ -1,0 +1,126 @@
+@isTest
+private class AccountInboundIntegration2_TEST {
+    @isTest static void unitGetRecordTest(){
+        Id recordId = createAccount();
+        //Request from External System
+        RestRequest request = new RestRequest();
+        request.requestURI = 'https://sofftinnovas2-dev-ed.my.salesforce.com/services/apexrest/AccountRecords/';
+        request.addParameter('Id',recordId);
+        request.addHeader('Content-Type','application/json');
+        request.addHeader('Accept','application/json');
+        request.httpMethod= 'GET';
+        
+        RestContext.request =request;
+        Test.startTest();
+        Account acc = AccountInboundIntegration2.getAccRecord();
+        //Verify
+        System.assertEquals('test Record', acc.Name);
+        Test.stopTest();
+    }
+    
+    @isTest Static void unitTestAccountCreation(){
+        // External System
+        RestRequest request = new RestRequest();
+        request.requestURI = 'https://sofftinnovas2-dev-ed.my.salesforce.com/services/apexrest/AccountRecords/';
+        request.addHeader('Content-Type','application/json');
+        request.addHeader('Accept','application/json');
+        request.httpMethod= 'POST';
+        String responseBody = '{"Name" :"Test New Records","Rating" : "Hot","Industry" : "Banking","Phone" : "1234567890"}';
+        request.requestBody = Blob.valueOf(responseBody);// changing Data type from String to Blob
+        
+       // String----> Object
+        
+        RestContext.request = request;
+        Test.startTest();
+        Account acc = AccountInboundIntegration2.createRecord();
+        // Verification
+        List<Account> lstAccount = new List<Account>();
+        lstAccount = [SELECT Id FROM Account WHERE Id =: acc.Id]; 
+        Test.stopTest();
+        System.assertEquals(1, lstAccount.size());
+        
+    }
+    
+    @isTest static void deleteRecordTest(){
+        // Creating Account Record and storing Record Id in recordId Variable
+         Id recordId = createAccount();
+        //Request from External System
+        RestRequest request = new RestRequest();
+        request.requestURI = 'https://sofftinnovas2-dev-ed.my.salesforce.com/services/apexrest/AccountRecords/';
+        request.addParameter('Id',recordId);
+        request.addHeader('Content-Type','application/json');
+        request.addHeader('Accept','application/json');
+        request.httpMethod= 'DELETE';
+        
+        RestContext.request = request;
+        Account acc = AccountInboundIntegration.getDeleteRecord();
+        //Varify
+        Test.startTest();
+        List<Account> lstAccount = new List<Account>();
+        lstAccount = [SELECT Id FROM Account WHERE Id =: acc.Id];
+        System.assertEquals(true, lstAccount.isEmpty());
+         Test.stopTest();
+    }
+    
+    @isTest static void AccountUpdateTest(){
+        // Creating Account Record and storing Record Id in recordId Variable
+         Id recordId = createAccount();
+        //Request from External System
+        RestRequest request = new RestRequest();
+        request.requestURI = 'https://sofftinnovas2-dev-ed.my.salesforce.com/services/apexrest/AccountRecords/';
+        request.addParameter('Id',recordId);
+        request.addHeader('Content-Type','application/json');
+        request.addHeader('Accept','application/json');
+        request.httpMethod= 'PATCH';
+        String responseBody = '{"Name" :"ABC","Rating" : "Hot","Industry" : "Banking","Phone" : "1234567890"}';
+        request.requestBody = Blob.valueOf(responseBody);// changing Data type from String to Blob
+        
+        RestContext.request = request;
+        Account acc = AccountInboundIntegration.getUpdatedRecords();
+        Test.startTest();
+        //Verification
+        Account accObj = new Account();
+        accObj = [SELECT Id,Name,Rating FROM Account WHERE Id =: accObj.Id];
+        System.assertEquals('ABC', accObj.Name);
+        Test.stopTest();
+        
+        
+    }
+    
+    @isTest static void AccountUpsertTest(){
+        // Creating Account Record and storing Record Id in recordId Variable
+         Id recordId = createAccount();
+        //Request from External System
+        RestRequest request = new RestRequest();
+        request.requestURI = 'https://sofftinnovas2-dev-ed.my.salesforce.com/services/apexrest/AccountRecords/';
+        request.addParameter('Id',recordId);
+        request.addHeader('Content-Type','application/json');
+        request.addHeader('Accept','application/json');
+        request.httpMethod= 'PUT';
+        String responseBody = '{"Name" :"ABCD","Rating" : "Hot","Industry" : "Banking","Phone" : "1234567890"}';
+        request.requestBody = Blob.valueOf(responseBody);// changing Data type from String to Blob
+        
+        RestContext.request = request;
+        Account acc = AccountInboundIntegration.getUpsertRecords();
+        Test.startTest();
+        //Verification
+        Account accObj = new Account();
+        accObj = [SELECT Id,Name,Rating FROM Account WHERE Id =: accObj.Id];
+        System.assertEquals('ABCD', accObj.Name);
+        Test.stopTest();
+        
+        
+    }
+    
+    
+    public static Id createAccount(){ // mevcut halde herhangi bir record olmadığı için bir record oluşturuldu. ve bu get ve diğer metotlarda da kullanılacağı için metot olarak hazırlandı. ve birçok defa çağrılabilecek metotlarda
+        Account acc = new Account();
+        acc.Name = 'test Record';
+        acc.Rating = 'Hot';
+        acc.Industry = 'Banking';
+        acc.Phone = '1234567890';
+        insert acc;
+        return acc.Id;
+    }
+    
+}

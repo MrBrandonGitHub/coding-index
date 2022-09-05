@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Second Html Page">
+        <lightning-button label="Back Page"
+                          variant='success'
+                          onclick={pageRender}>
+        </lightning-button>
+    </lightning-card>
+</template>

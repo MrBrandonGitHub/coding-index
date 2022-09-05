@@ -1,0 +1,31 @@
+
+
+import { LightningElement, api } from 'lwc';
+import { ShowToastEvent} from "lightning/platformShowToastEvent";
+import DEVSTARS_OBJ from '@salesforce/schema/DevStars__c';
+
+export default class EditFormDevstars extends LightningElement {
+    @api objectApiName; // based on object Page
+    objectName = DEVSTARS_OBJ;
+    @api recordId;    
+
+    errorHandler(event){
+        const evnt = new ShowToastEvent({ 
+            title:'Record Status', 
+            message:'The record could not be saved', 
+            variant:'error'
+        });
+        this.dispatchEvent(evnt);
+    }
+
+    successHandler(event){
+        const evnt = new ShowToastEvent({
+            title:'Record Status', 
+            message: 'Succesfully saved and record id is ' + event.detail.id , 
+            variant:'success'
+        });
+        this.dispatchEvent(evnt);
+    }
+
+    
+}

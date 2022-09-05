@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="First Html Page">
+        <lightning-button label="Next Page"
+                          variant='brand'
+                          onclick={pageRender}>
+        </lightning-button>
+    </lightning-card>
+</template>

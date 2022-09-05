@@ -1,0 +1,25 @@
+import { LightningElement } from 'lwc';
+
+export default class ParentListener extends LightningElement {
+    parentMessage;
+
+    constructor(){
+        super();
+        this.template.addEventListener('childtoparent', (e)=>this.parentMessage= e.detail);
+    }  
+}
+
+// // ya da
+
+// export default class ParentListener extends LightningElement {
+//     parentMessage;
+
+//     constructor(){
+//         super();
+//         this.template.addEventListener('childtoparent', this.handlerEvent.bind(this));
+//     }
+
+//     handlerEvent(event){
+//         this.parentMessage = event.detail;
+//     }    
+// }

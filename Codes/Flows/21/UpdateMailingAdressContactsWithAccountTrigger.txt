@@ -1,0 +1,3 @@
+trigger UpdateMailingAdressContactsWithAccountTrigger on Account (after update) {
+    UpdateContactAdresswithAccHandler.updateContact(trigger.new, trigger.old);
+}

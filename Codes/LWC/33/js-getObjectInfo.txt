@@ -1,0 +1,32 @@
+import { LightningElement, wire } from 'lwc';
+import {getObjectInfo} from 'lightning/uiObjectInfoApi';
+import ACCOUNT_OBJ from '@salesforce/schema/Account';
+
+export default class GetObjectInfo extends LightningElement {
+    allData;
+    accountApiName;
+    recordTypeId;
+    accNumber;
+    colorCode;
+    allFieldsName=[];
+    
+    
+    
+    @wire(getObjectInfo, {objectApiName : ACCOUNT_OBJ}) getObject({data,error}){
+        if(data){ //positive
+            this.accountApiName = data.apiName;
+            this.recordTypeId = data.defaultRecordTypeId;
+            this.accNumber = data.fields.AccountNumber.apiName;
+            this.colorCode = data.themeInfo.color;
+            
+
+            for(var key in data.fields){  // key ler field name leri
+                this.allFieldsName.push(key);
+            }            
+
+            console.log(data);
+        }else if(error){ // negative response
+
+        }
+    }
+}

@@ -1,0 +1,87 @@
+<template>
+    <lightning-card title="Uçuş Bilgileri:">
+        <div class="slds-p-around_medium">
+            
+            <lightning-input 
+            label="Flying From" 
+            value=""
+            onchange={neredenMethod}
+            required="true"
+            placeholder="Type here the place name.. ">
+            </lightning-input>
+
+            <lightning-input
+            label="Flying To"
+            value=""
+            onchange={nereyeMethod}
+            required="true"
+            placeholder="Type here the place name.. ">
+            </lightning-input>
+
+            <lightning-combobox
+            name="progress"
+            label="Flight"
+            value={value}
+            placeholder="Select Progress"
+            required="true"
+            options={options}
+            onchange={handleChange} ></lightning-combobox>    
+
+            <lightning-input
+            label="Departing"
+            type="date"
+            value=""
+            onchange={gidişMethod}
+            required="true"
+            placeholder="Type here the departing date.. ">
+            </lightning-input>
+
+            <lightning-input
+            label="Returning"
+            type="date"
+            value=""
+            onchange={dönüşMethod}
+            required="true"
+            placeholder="Type here the returning date.. ">
+            </lightning-input>
+
+            <lightning-input
+            label="Number of Passengers"
+            type="number"
+            value=""
+            onchange={yolcuSayiMethod}
+            required="true"
+            placeholder="Type here the number of passenger.. ">
+            </lightning-input>
+
+            <hr>            
+
+            <p><b>From:</b> {nereden}</p>
+            <p><b>To:</b> {nereye}</p>
+            <p><b>Type of Flight:</b> {value}</p>
+            <p><b>Departure Date:</b> {gidişTarih}</p>
+            <p><b>Return: </b>{dönüşTarih}</p>
+            <p><b><mark>Number of Passengers:</mark></b> {yolcuSayisi}</p>       
+            <lightning-input value="Price"></lightning-input>
+            
+        <!-- <p><b>Price: {tutar}</b></p>
+            <div class="slds-text-align_center"> 
+            <p><b>From:</b> <mark>{nereden}</mark></p>
+            <p><strong>To:</strong> <mark>{nereye}</mark></p>
+            <p><i>Departure Date:</i> <mark>{gidişTarih}</mark></p>
+            <p><em>Return: </em><mark>{dönüşTarih}</mark></p>
+            <p><del>Number of Passengers:</del> <mark>{yolcuSayisi}</mark></p>
+        </div>        
+        -->        
+            
+        <lightning-button 
+        position="absolute"
+        label="Search" 
+        class="slds-align_absolute-center" 
+        title="Search Button" 
+        variant="brand" 
+        onclick={searchMethod}>
+    </lightning-button>
+    </div>
+    </lightning-card>    
+</template>

@@ -1,0 +1,63 @@
+Callback Methods in Lighting Web Components(lwc)
+1. constructor()
+2. connectedCallback()
+3. disconnectedCallback()
+4. render()
+5. renderedCallback()
+6. errorCallback(error, stack)
+
+(( element means tag. for example: lightning card, lightning input, lightning button, so on ))
+
+
+ 
+1.) constructor()
+This callback method called when the component created.
+This method lifecycle flows from Parent to Child component.
+You can access the host element with this.template.
+we can’t access child elements in the component body because they don’t exist yet.
+
+2.) connectedCallback()
+This callback method called when the element is inserted into a document.
+This method lifecycle flows from Parent to Child Component.
+we can’t access child elements in the component body because they don’t exist yet.
+You can access the host element with this.template.
+
+3.) disconnectedCallback()
+This callback method called when the element is removed from a document.
+This method lifecycle flows from Parent to Child Component.
+we can use disconnectedcallback function in child component only
+
+
+4.) render()
+This callback method used to conditionally rendering a template or importing a custom one, use render() to override standard rendering functionality. 
+This function gets invoked after connectedCallback() and must return a valid HTML template.
+
+5.) renderedCallback()
+This Method called after every render of the component.
+This callback method is specific to Lightning Web Components, it isn’t from the HTML custom elements specification.
+This method flows from child to parent.
+
+6.)  errorCallback(error, stack)
+This method called when a descendant component throws an error in one of its callback.
+ The error argument is a JavaScript native error object, and the stack argument is a string.
+ This callback method is specific to Lightning Web Components, it isn’t from the HTML custom elements specification.
+
+
+
+-----------------------
+
+AÇIKLAMA: ternary operator
+var xyz = 2>5 ? 'Hello' : 'Hi';
+
+xyz adında bir variable
+eğer 2, 5 den büyükse xyz = 'Hello';
+eğer 2, 5 ten küçükse xyz = 'Hi';
+syntax ==>  condition ? true : false;
+
+-----------------------
+
+
+
+
+
+

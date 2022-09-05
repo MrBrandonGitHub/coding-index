@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Create OPP with ACC">
+        
+        <lightning-record-form        
+            object-api-name={objectApiName}
+            
+            fields={myfields}         
+            columns="2"
+            mode="view"        
+            onerror={errorHandler}
+            onload={loadHandler}
+            onsubmit={submitHandler}
+            onsuccess={succesHandler}                                    
+            > 
+        </lightning-record-form>
+
+    </lightning-card>
+    
+</template>

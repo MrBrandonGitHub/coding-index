@@ -1,0 +1,11 @@
+@isTest
+private class trgAccount_Test {
+    @isTest static void unitTest1(){
+        Account acc = new Account();
+        acc.Name = ‘Test’;
+        acc.Rating = ‘Hot’;
+        insert acc;// recored has been inserted
+        Account accObj = [SELECT id,Industry FROM Account WHERE Id =: acc.Id ];
+        System.assertEquals(‘Banking’, accObj.Industry);
+    }
+}

@@ -1,0 +1,50 @@
+<template>
+    <lightning-card title="EDIT FORM">
+
+        <lightning-record-edit-form 
+            object-api-name={objectApiName}
+            record-id={recordId}
+            onerror={errorHandler}                        
+            onsuccess={successHandler}
+            >
+            <div class="slds-var-p-around_medium 
+                        slds-grid 
+                        slds-gutters">
+
+                <div class="slds-col">
+                    <lightning-input-field 
+                        field-name="Name">
+                    </lightning-input-field>
+
+                    <lightning-input-field 
+                        field-name="Level__c">
+                    </lightning-input-field>
+
+                    <lightning-input-field 
+                        field-name="Job__c">
+                    </lightning-input-field>
+
+                    <lightning-input-field 
+                        field-name="Country__c">
+                    </lightning-input-field>
+                </div>
+                <div class="slds-col">
+                    <lightning-output-field 
+                        field-name="Email__c">
+                    </lightning-output-field>
+                </div>
+                
+            </div>
+
+            <div class="slds-align_absolute-center">
+                <lightning-button 
+                    label="Save" 
+                    type="submit" 
+                    variant="brand">
+                </lightning-button>
+            </div>
+        </lightning-record-edit-form>
+
+    </lightning-card>
+    
+</template>

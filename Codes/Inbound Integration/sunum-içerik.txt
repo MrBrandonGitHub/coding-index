@@ -1,0 +1,159 @@
+======>> Salesforce. com - Force.com - Heroku.com ne demek <<======
+
+------------------------------------------------------------------
+
+ - API (Application Programming Interface)
+People communicate with each other through natural language. Software communicate via APIs (application programming interfaces)(Uygulama Programlama Arabirimleri).
+
+---------------------------------
+
+- Integration Tipleri
+Protokoller: Kuralları belirleyen protokoller. İletişimde kullanılan diller. Bu iletişimde hangi protokol kuralları kullanılacak. SOAP mı REST mi?
+- SOAP(Simple Object Access Protocol): sadece xml dili ile çalışır. xml daha çok bankalarda, devlet kurumlarında kullanılır. 
+- REST(REpresentational State Transfer): hem JSON hem de XML dili ile çalışır. JSON daha hızlı ve daha yaygındır.
+
+---------------------------------
+- inbound integration nedir? (Şema)
+- outbound Integration
+---------------------------------
+
+- Integration için yapılması gereken 2 ayar 
+  ( 1. Salesforce ve 2. Postman-Workbench ayarları nasıl yapılır?)
+1.Salesforce Org Ayarı
+App Manager --> New Connected App
+Enable OAuth Settings: true
+Callback URL: https://login.salesforce.com/services/oauth2/callback
+Selected OAuth Scopes: Full Access(full)
+
+
+2.Postman
+- endpoint i ayarla
+Http Method: POST
+https://login.salesforce.com/services/oauth2/token
+
+- Params ları ayarla ( Key - Value değerleri)
+username: bağlanacak org un user name (developerlittlebylittlesf@gmail.com)
+password: bağlanacak org un şifresi
+grant_type: password
+client_id: Org taki connected app'in KEY değeri
+client_secret: Org taki connected app'in SECRET değeri
+
+SEND  tıkla
+altta token oluşturulur
+altta Karşı tarafından nereden işlem yapacağı adres de oluşturulmuş olur
+- Authorization ı ayarla
+Type: OAuth2.0
+
+- Sonraki her bir Request için Headers ı ayarla
+Key: Authorization
+Value: Bearer 00D8d000003VSX9!AQsAQIieqYhfV.MV3muhn4x15xl5YBVD3OGfpjKBM4IXA7MhZVqY6Yf4aCIuuiK_OrlWKZzRSfCwf5SabU.G9LpHjdfQN5Xv
+              (Bu değer her seferinde yeni token lar alınarak güncellenmeli)
+
+
+3.Workbench
+- Workbanch ayarı yapılırken Version? nereden: setup -- Develop/api -- Enterprise WSDL-Generate 
+
+---------------------------------
+- Http Methods(Http Calls):
+==> RestContext <== 
+(https://sforce.co/3R4iJt8)
+GET: Get/Read
+POST: Create/Insert (body zorunlu)
+PUT: Upsert (body zorunlu)
+PATCH: Update (body zorunlu)
+DELETE: Delete
+---------------------------------
+- RestResource ve Mapping işlemi
+
+- endpoint: 
+URL. yani ilgili yerin adresi. örneğin,
+https://softinnovas-13b-dev-ed.lightning.force.com/services/apexrest/AccountRating/?Id=0018d000009ws0XAAQ
+(params: soru işaretinden sonraki kısım)
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+ÖRNEKLER:
+
+GET:
+1) DevStars ta kimler var?
+/services/apexrest/DevStars/
+
+2) DevStars ta kimler junior kimler senior?
+/services/apexrest/DevStars/?Level__c=Junior
+
+3) DevStars ta kimler Senior ve UK'de
+/services/apexrest/DevStars/?Level__c=Senior&&Country__c=UK
+
+4) DevStars ta kimler hem Remote hem de On-Site çalışmak istiyor?
+/services/apexrest/DevStars/?Job__c=Remote;On-Site
+
+5) DevStarsta kimler 180.000 euro üstü maaaş istiyor?
+/services/apexrest/DevStars/?Salary_Expectation__c=180000
+(endpoint te büyük küçük işarettleri kullanılmaz. o işaretler VS Code'ta yazılır)
+
+
+
+
+DELETE:
+1) DevStars ta Yabancı Cisim i sil!
+/services/apexrest/DevStars/?id=a0E8d000000VFLrEAO
+
+
+POST
+1) DevStars a bir üye ekle
+/services/apexrest/DevStars/    (endpoint'te urlMapping ismi yeterli)
+(*endPoint'e fieldlar eklenip de yapılabilir. ama best practice değil)
+(   /services/apexrest/DevStars/?Name=New Member && Salutation=Mss && Salary=555 && CountryRequest=USA    )
+
+body: 
+{
+"Name": "New Member",
+"Salutation": "Mss",
+"Salary": "555",
+"CountryRequest": "USA"
+}
+
+
+PATCH
+1) DevStars'ta Esma adlı üyenin Salary Expectation ını güncelle
+/services/apexrest/DevStars/?id=a0E8d000000VFL3EAO
+
+body:
+{
+"Salary": "175000"
+}
+
+2) DevStars'ta Esma adlı üyenin Level ını Senior olarak güncelle
+/services/apexrest/DevStars/?Name=Brandon
+
+body:
+{
+"Level": "Senior"
+}
+
+
+PUT
+1) DevStars a 1 üye daha ekle
+/services/apexrest/DevStars/
+
+body:
+{
+"Name": "New Member2",
+"Salutation": "Mss",
+"Salary": "555000",
+"CountryRequest": "Italy"
+}
+
+
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------- That's All!! ---------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+------------------------------------------------------------------
+
+
+
+

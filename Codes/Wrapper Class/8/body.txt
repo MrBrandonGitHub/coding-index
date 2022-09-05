@@ -1,0 +1,21 @@
+[{
+        "Name" : "test Record 1",
+        "Rating" : "Hot",
+        "Industry" : "Banking" ,
+        "Website" : "www.google.com",
+        "Phone"   : "1234567890",
+        "Fax" : "1234567890",
+        "Active__c" : "Yes"
+},
+{
+        "Name" : "test Record 2",
+        "Active__c" : "Yes"
+        
+},
+{
+        "Name" : "test Record 3",
+        "Rating" : "Hot",
+        "Industry" : "Banking",
+        "Active__c" : "Yes"
+         
+}]

@@ -1,0 +1,30 @@
+global with sharing class AccountBatchApex implements Database.Batchable<sObject> , Database.Stateful{
+    Integer intNumOfBatch = 0;
+    Integer intNumOfRec = 0; 
+
+    global Database.QueryLocator  start(Database.BatchableContext bc) {
+        return Database.getQueryLocator([Select id,Description from Account]);
+    }
+    global void execute(Database.BatchableContext bc, List<Account> scope){
+        // process each batch of records
+        List<Account> lstUpdRcds = new List<Account>();
+        if(scope != null && scope.size()>0){
+            for(Account rcd : scope){
+                rcd.Description = 'This field updated in the Batchable Apex';
+                lstUpdRcds.add(rcd);
+                intNumOfRec++;
+            }
+            intNumOfBatch++;
+        }
+        if(lstUpdRcds != null){
+            system.debug('@@@:: size::'+lstUpdRcds.size());
+            update lstUpdRcds;
+        }
+    }
+    global void finish(Database.BatchableContext bc){
+        System.debug('@@@@::::: Number of batches : ' + intNumOfBatch);
+        System.debug('@@@@::::: Number of records : ' + intNumOfRec);      
+        
+        // execute any post-processing operations
+    }
+}

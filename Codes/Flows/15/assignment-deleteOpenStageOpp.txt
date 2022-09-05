@@ -1,0 +1,50 @@
+public class deleteOpenStageOpp {
+   @InvocableMethod
+    public static void deleteOpp(List<Request> lstRequest){
+        List<Opportunity> lstOpp = new List<Opportunity>();
+        Set<Id> setOfAccountId = new Set<Id>();
+        for(Request req : lstRequest){
+            setOfAccountId.add(req.AccRecordId);  
+        }
+        if(setOfAccountId != null && setOfAccountId.size() > 0){
+            lstOpp = [SELECT id,StageName FROM Opportunity WHERE AccountId IN :setOfAccountId AND StageName != 'Closed Won' AND StageName !='Closed Lost'];
+            delete lstOpp;
+        }
+        
+    }
+    
+    
+    Public Class Request{
+        @InvocableVariable
+        public Id AccRecordId;
+    } 
+    
+}
+
+--------------------------
+//Requirment :- While creating or Updating Opportunities records if Stage is Closed Won 
+//or Closed lost then all Open Stage(Apart from Closed Won and closed Lost) 
+//Records should be  deleted under the same account.
+//homework olarak bitir bunu
+public class DeleteOpenStageOpp {
+    @InvocableMethod
+    public static void deleteRecords(List<request> accId){
+        List<Opportunity> lstOpp = new List<Opportunity>();
+        set<Id> setOfAccId = new Set<Id>();
+        for(request req:accId){
+           setOfAccId.add(req.accRecordId);
+        }
+        
+           if(setOfAccId != null && setOfAccId.size() > 0){
+            lstOpp = [SELECT id FROM Opportunity WHERE  AccountId IN :setOfAccId AND StageName not IN ('Closed Won','Closed Lost')];
+            delete lstOpp;
+        }
+          
+        
+    }
+    //send info from Record Trigger flow to Apex
+    public class request{
+        @InvocableVariable
+        public id accRecordId;
+    }
+}

@@ -1,0 +1,5 @@
+<template>
+    <lightning-card title=" Child Component" >
+        Child Component
+    </lightning-card>
+</template>

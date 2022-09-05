@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Lightning Constructor">
+        <p>Lightning Constructor Demo</p>
+        <lightning-button label="click Me" variant="brand" onclick={removeChildComponent}></lightning-button>
+
+        <template if:true={isDisplay}>
+            <c-constructor-demo-child></c-constructor-demo-child>
+        </template>
+    </lightning-card>
+</template>

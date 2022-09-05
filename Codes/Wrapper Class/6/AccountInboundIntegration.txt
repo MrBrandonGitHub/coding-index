@@ -1,0 +1,60 @@
+@RestResource(urlMapping='/AccountIntegration/')
+global class AccountInboundIntegration {
+    @httpPost
+    global static Map<String,String> createRecords(){
+
+        Map<String,String> mapOfString = new Map<String,String>();
+         
+        RestRequest req = restContext.request;// All Information storing in req Valiable       
+        Blob bodyJSON = req.requestBody;//Primitive Data Type :- It is used to store Binary infor csfile //buraya eklenmese de olur. mantığı görmek için eklendi
+        String json = req.requestBody.toString();
+        wrapperRecord wrp = (wrapperRecord)JSON.deserialize(json, wrapperRecord.Class); //String---> Object
+
+        Account accObj = new Account();
+        accObj.Name = wrp.acc.name;
+        accObj.Website = wrp.acc.website;
+        insert accObj;
+        mapOfString.put('Account', accObj.Id);
+        
+        Contact conObject= new Contact();
+        conObject.FirstName = wrp.con.firstName;
+        conObject.LastName = wrp.con.firstName;
+        conObject.AccountId = accObj.Id;
+        insert conObject;
+        mapOfString.put('Contact', conObject.Id);
+        
+        Opportunity oppObj = new Opportunity();
+        oppObj.Name = wrp.opp.name;
+        oppObj.StageName = wrp.opp.stageName;
+        oppObj.CloseDate = Date.valueOf(wrp.opp.closedDate);
+        oppObj.AccountId = accObj.Id;
+        insert oppObj;
+        mapOfString.put('opportunity', oppObj.Id);        
+       
+        return mapOfString;        
+    }
+
+    
+    // Wrapper classes
+    global Class wrapperRecord{
+        public wrapperAccount acc;
+        public wrapperContact con;
+        public wrapperOpportunity opp;
+    }
+    
+    global class wrapperAccount{
+        public String name;
+        public String website;
+    }
+    
+    global class wrapperContact{
+        public String firstName;
+        public String lastName;
+    }
+    
+    global class wrapperOpportunity{
+        public String name;
+        public String stageName;
+        public String closedDate;
+    }
+}

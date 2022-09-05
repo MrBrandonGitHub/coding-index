@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="My Parent Page">
+        Testing
+
+        <c-child-page></c-child-page>
+    </lightning-card>
+</template>

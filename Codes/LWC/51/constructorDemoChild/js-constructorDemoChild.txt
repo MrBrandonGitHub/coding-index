@@ -1,0 +1,18 @@
+import { LightningElement } from 'lwc';
+
+export default class ConstructorDemoChild extends LightningElement {
+    
+    constructor(){
+        super();
+        console.log('--constructor in child component---');
+    }
+
+    connectedCallback(){
+        console.log('--connectedCallback in child component---');
+    }
+    
+    disconnectedCallback(){
+        console.log('--disconnectedCallback--Firing from child------');
+    }
+   
+}

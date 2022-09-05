@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="Dependent Picklist">
+        <lightning-combobox label="Account Record Type" options={allAccountRecordType} value={value} onchange={handlerEvent}>
+
+        </lightning-combobox>
+        <br />
+        <br />
+
+        <lightning-combobox label="State Field" options={allStateValues}>
+
+        </lightning-combobox>
+
+        <br />
+
+        <lightning-combobox label="Industry Field" options={allIndustryField}>
+
+        </lightning-combobox>
+
+        <br />
+
+        <lightning-combobox label="Rating Field" options={allRatingField}>
+
+        </lightning-combobox>
+
+    </lightning-card>
+
+</template>

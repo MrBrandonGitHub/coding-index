@@ -1,0 +1,9 @@
+public with sharing class imperativeClass {
+    
+    @AuraEnabled
+    public static List<Account> allAcc(){
+        List<Account> lstAccount = new List<Account>();
+        lstAccount = [SELECT Id ,Name,Rating FROM Account LIMIT 10];
+        return lstAccount;
+    }
+}

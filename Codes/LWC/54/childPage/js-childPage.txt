@@ -1,0 +1,8 @@
+import { LightningElement } from 'lwc';
+
+export default class ChildPage extends LightningElement {
+
+    connectedCallback(){
+        throw new Error('Hello I am raising an error message from Child Component');
+    }
+}

@@ -1,0 +1,37 @@
+import { LightningElement, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
+import CASE_OBJ from '@salesforce/schema/Case';
+import SUBJECT_FIELD from '@salesforce/schema/Case.Subject';
+import PRIORITY_FIELD from '@salesforce/schema/Case.Priority';
+import STATUS_FIELD from '@salesforce/schema/Case.Status';
+import DESC_FIELD from '@salesforce/schema/Case.Description';
+import ORIGIN_FIELD from '@salesforce/schema/Case.Origin';
+
+import ACCOUNT_FIELD from '@salesforce/schema/Case.AccountId';
+import CONTACT_FIELD from '@salesforce/schema/Case.ContactId';
+
+
+export default class RecordEditCaseForm extends LightningElement {
+    @api recordId;
+    objectApiName = CASE_OBJ;
+
+    fields = {
+                account:ACCOUNT_FIELD,
+                contact:CONTACT_FIELD,
+                subject:SUBJECT_FIELD,
+                priority:PRIORITY_FIELD,
+                status:STATUS_FIELD,
+                description:DESC_FIELD,
+                origin:ORIGIN_FIELD
+            }
+
+    successHandler(){
+        const evnt = new ShowToastEvent({
+                title: 'Edit Case',
+                message: 'Record has been edited succesfully!!',
+                variant: 'success'
+            });
+            this.dispatchEvent(evnt);
+    }
+}

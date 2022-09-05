@@ -1,0 +1,11 @@
+@RestResource(urlMapping='/AccountRating/')
+global class getInboundIntegration {
+    @HttpGet
+    global static Account getRecord(){
+        Account acc = new Account();
+        Map<String,String>  getAllParams = RestContext.request.params;
+        String accountId = getAllParams.get('Id');
+        acc = [SELECT Id,Name,Rating,Industry FROM Account WHERE Id =:accountId];
+        return acc;
+    }
+}

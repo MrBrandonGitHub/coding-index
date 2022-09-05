@@ -1,0 +1,14 @@
+
+
+insertContact.insertContactMethod();
+
+insertContact.multipleInsertContactMethod();
+
+insertContact.deleteMethod();
+
+
+
+
+
+
+

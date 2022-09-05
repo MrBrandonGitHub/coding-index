@@ -1,0 +1,47 @@
+public with sharing class goRestClass {
+    public static void getRecords(){
+        
+        List<Go_Rest__c> lstGoRest = new List<Go_Rest__c>();
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://gorest.co.in/public/v2/users');
+        request.setMethod('GET');
+
+        Http hp = new Http();
+
+        HttpResponse response = new HttpResponse();
+        response = hp.send(request);
+
+        if(response.getStatusCode()==200){
+            string jsonBody = response.getBody();
+            List<wrapperGoRest> lstWrapper = (List<wrapperGoRest>)JSON.deserialize(jsonBody, List<wrapperGoRest>.Class);
+            system.debug('lstWrapper is =====' + lstWrapper);
+            for(wrapperGoRest eachWrapper : lstWrapper){
+                Go_Rest__c obj = new Go_Rest__c();
+                obj.name = eachWrapper.name;
+                obj.Id__c = eachWrapper.id;
+                obj.email__c = eachWrapper.email;
+                obj.gender__c = eachWrapper.gender;
+                obj.status__c = eachWrapper.status;
+
+                lstGoRest.add(obj);
+
+            }
+            insert lstGoRest;
+        }
+
+        system.debug('=====' + request);
+
+    }
+
+    public class wrapperGoRest{
+        public string id;
+        public String name;
+        public String email;
+        public String gender;
+        public String status;
+
+    }
+
+
+}

@@ -1,0 +1,10 @@
+import { LightningElement } from 'lwc';
+
+export default class MultipleInfo extends LightningElement {
+
+    allPeopleInfo = [
+                    {firstName : 'FN1', lastName : 'LN1', Email : 'abc@gmail.com'},
+                    {firstName : 'FN2', lastName : 'LN2', Email : 'def@gmail.com'},
+                    {firstName : 'FN3', lastName : 'LN3', Email : 'ghi@gmail.com'},
+                    ]
+}

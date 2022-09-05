@@ -1,0 +1,28 @@
+public with sharing class SFProjectHandler {
+    public static void CompletedStatus(List<Salesforce_Project__c> SPtriggerNew, List<Salesforce_Project__c> SptriggerOld, Map<Id, Salesforce_Project__c> SPMapNew, Map<Id,Salesforce_Project__c> SPMapOld){
+
+        Set<id> setIds = new Set<Id>();
+        for(Salesforce_Project__c sfp : SPtriggerNew){
+            if(sfp.status__c != SPMapOld.get(sfp.Id).status__c && sfp.status__c == 'Completed'){
+                setIds.add(sfp.Id);
+            }
+        }
+
+        if(!setIds.isEmpty()){
+            completedSFTicketFuture(setIds);
+            system.debug('update yapildi');
+        }
+    }
+
+    @Future
+    private static void completedSFTicketFuture(Set<id> setParamIds){
+        List<Salesforce_Ticket__c> lstTicket = [SELECT id, Status__c from Salesforce_Ticket__c where  Salesforce_Project__c  in: setParamIds AND Status__c !='Completed'];
+        for(Salesforce_Ticket__c sfTic : lstTicket){
+            sfTic.status__c = 'Completed';
+        }
+        if(!lstTicket.isEmpty()){
+            update lstTicket;
+        }
+    }
+        
+}

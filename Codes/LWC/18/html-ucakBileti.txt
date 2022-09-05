@@ -1,0 +1,89 @@
+<template>
+    <lightning-card title="Uçak Bilet Rezervasyon Sayfasi">
+        <div class="slds-p-around_medium">           
+
+    <lightning-input
+        label="From"
+        value=""
+        required="true"
+        placeholder="type here"
+        onchange={neredenMethod}
+    >
+    </lightning-input>
+
+    <lightning-input
+        label="To"
+        value=""
+        required="true"
+        placeholder="type here"
+        onchange={nereyeMethod}
+    >
+    </lightning-input>
+
+    <lightning-combobox
+            name="progress"
+            label="Flight"
+            value={value}
+            placeholder="Select Progress"
+            required="true"
+            options={optionTercih}
+            onchange={handleChange} >
+    </lightning-combobox>   
+
+    <lightning-input
+        label="Departing date"
+        type="date"
+        value=""
+        required="true"
+        placeholder="type here"
+        onchange={gidişMethod}
+        
+    >
+    </lightning-input>
+
+    <lightning-input
+        label="Returning Date"
+        value=""
+        type="date"
+        required="true"
+        placeholder="type here"
+        onchange={dönüşMethod}
+        
+    >
+    </lightning-input>
+
+    <lightning-input
+        label="Number of Passengers"
+        value=""
+        required="true"
+        type="number"
+        placeholder="type here"
+        onchange={numberPassMethod}
+        
+    >
+    </lightning-input>
+
+    <hr>
+
+    <p><b>From: </b> {nereden}</p>
+    <p><b>To: </b> {nereye}</p>
+    <p><b>Type of Fligt:</b> {value}</p>
+    <p><b>Daparture:</b> {gidiş}</p>
+    <p><b>Returning: </b> {dönüş}</p>
+    <p><b>Number of Passengers: </b> {numberPassenger}</p>
+
+    <p><mark>Price: </mark>{calcPrice}</p>
+    <p><mark>Route: </mark>{gitGelBirleşik}</p>
+
+    <lightning-button 
+        position="absolute"
+        label="Ara" 
+        class="slds-align_absolute-center" 
+        title="Search Button" 
+        variant="brand" 
+        onclick={searchMethod}>
+    </lightning-button>
+
+</div>
+</lightning-card>
+</template>

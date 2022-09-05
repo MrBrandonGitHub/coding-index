@@ -1,0 +1,35 @@
+public class trgContactHandler2 {
+    public static void afterInsert(List<Contact> newContact){
+        Set<Id> setOfId = new Set<Id>();// To store Account Id
+        List<Account> lstAccount = new List<Account>();// DO soql Query
+        for(Contact con : newContact){
+            if(con.AccountId != null){
+                setOfId.add(con.AccountId);
+            }
+        }
+        if(setOfId != null && setOfId.size() > 0){
+            lstAccount = [SELECT Id, Total_Number_OF_Contact__c,(SELECT Id FROM Contacts) FROM Account WHERE Id IN : setOfId];
+            for(Account acc : lstAccount){
+                acc.Number_of_Contacts__c = acc.Contacts.size();
+            }
+            update lstAccount;
+        }
+    }
+    public static void afterUpdate(List<COntact> newContact,Map<Id,Contact> oldMap){// A--->B
+         Set<Id> setOfId = new Set<Id>();// To store Account Id
+        List<Account> lstAccount = new List<Account>();// DO soql Query
+        for(Contact con : newContact){
+            if(con.AccountId != oldMap.get(con.Id).AccountId ){
+                setOfId.add(con.AccountId);//B AccountId
+                 setOfId.add(oldMap.get(con.Id).AccountId);// A’s AccountId
+            }
+        }
+        if(setOfId != null && setOfId.size() > 0){
+            lstAccount = [SELECT Id, Total_Number_OF_Contact__c,(SELECT Id FROM Contacts) FROM Account WHERE Id IN : setOfId];
+            for(Account acc : lstAccount){
+                acc.Number_of_Contacts__c = acc.Contacts.size();
+            }
+            update lstAccount;
+        }
+    }
+}

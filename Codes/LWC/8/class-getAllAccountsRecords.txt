@@ -1,0 +1,14 @@
+public with sharing class getAllAccountsRecords {
+    public getAllAccountsRecords() {
+
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<Account> getRecords(){
+        List<Account> lstAccount = new List<Account>();
+        lstAccount = [select Id, Rating, Name, Industry, Phone from Account limit 10];
+        //
+        // Account acc = new Account();
+        // insert acc;
+        return lstAccount;
+    }
+}

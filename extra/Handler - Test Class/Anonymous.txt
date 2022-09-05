@@ -1,0 +1,8 @@
+List<Account> lstAccount = new List<Account>();
+for(Integer i=0;i<5;i++){
+    Account acc = new Account();
+    acc.Name = ‘Test records’+i;
+    acc.Rating = ‘Hot’;
+    lstAccount.add(acc);
+}
+insert lstAccount;

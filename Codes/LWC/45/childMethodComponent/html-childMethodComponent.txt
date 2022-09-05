@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Child Method Component">
+        <p>Hello, {childMessage}</p>
+        <br>
+        <p>{myRating} and {myIndustry}</p>
+        <br>
+        <p>from Query Selector: {childData}</p>
+    </lightning-card>
+</template>

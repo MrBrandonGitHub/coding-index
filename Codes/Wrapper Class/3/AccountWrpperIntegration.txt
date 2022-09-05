@@ -1,0 +1,51 @@
+@RestResource(urlMapping='/AccountWrapper/')
+global class AccountWrpperIntegration {
+    
+    // 1 Account and 1 COntact
+    @httpPost
+    global static Map<String,String> createRecord(){
+
+        Map<String,String> mapRecordsId = new Map<String,String>();
+
+        RestRequest req = restContext.request;   
+        String jsonBody = req.requestBody.toString();//String---> Object(Object)
+        System.debug('====jsonBody=='+ jsonBody);
+        
+        accWrpper  wrp = new accWrpper();
+        wrp = (accWrpper)JSON.deserialize(jsonBody, accWrpper.Class);// Object
+        System.debug(wrp);
+        Account acc = new Account();
+        acc.Name = wrp.accObj.name;
+        acc.Rating = wrp.accObj.rating;
+        acc.Industry = wrp.accObj.industry;
+        acc.Website = wrp.accObj.website;
+        insert acc;
+        mapRecordsId.put('Account Record Has been created', acc.Id);
+        
+        Contact con = new Contact();
+        con.FirstName = wrp.conObj.firstName;
+        con.LastName = wrp.conObj.lastName;
+        insert con;
+        mapRecordsId.put('Contact Record Has been created', con.Id);
+
+        return mapRecordsId;
+    }
+    
+    // Wrapper Class for storing 1 Account and 1 COntact
+    global class accWrpper{
+        global accountWrpper accObj; 
+        global contactWrpper conObj;
+    }
+    global class accountWrpper{
+        global String name;
+        global String rating;
+        global String industry;
+        global String website;
+    }
+    global class contactWrpper{
+        global String firstName;
+        global String lastName;
+    }
+    
+    
+}

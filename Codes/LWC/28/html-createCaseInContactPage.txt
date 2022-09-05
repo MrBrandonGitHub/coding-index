@@ -1,0 +1,40 @@
+<template>
+    <lightning-card title="Create Case With Wire Service">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+            label="Status"
+            value={status}
+            options={statusOptions}
+            onchange={statusHandler} >
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Priorty"
+            value={priority}
+            options={priorityOptions}
+            onchange={priorityHandler} >
+        </lightning-combobox>
+
+        <lightning-combobox
+            label="Origin"
+            value={origin}
+            options={originOptions}
+            onchange={originHandler} >
+        </lightning-combobox>
+
+    
+        <br>
+
+        <lightning-button
+        label="Save"
+        variant="brand"
+        onclick={saveHandler}
+        class="slds-align_absolute-center"
+        >
+        </lightning-button>
+
+        </div>
+
+    </lightning-card>
+    
+</template>

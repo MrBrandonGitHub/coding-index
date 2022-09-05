@@ -1,0 +1,15 @@
+public with sharing class getRecordsAccAndConMailForWire {
+    
+
+    @AuraEnabled(cacheable=true)
+    public static List< List<sObject>> getRecords(){
+        
+        List< List<sObject>> searchList = [FIND 'com' IN ALL FIELDS RETURNING
+                                            Account(Name, Website), Contact(Name, Email)];
+	// List<Account> accList = (List<Account>)searchList[0];
+	// List<Contact> conList = (List<Contact>)searchList[1];
+
+        return searchList;
+    }
+    
+}

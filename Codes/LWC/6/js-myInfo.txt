@@ -1,0 +1,9 @@
+import { LightningElement } from 'lwc';
+
+export default class MyInfo extends LightningElement {
+
+    info = {firstName : 'Mr', 
+            lastName : 'Brandon', 
+            Age : '41', 
+            Country : 'Turkey'};
+}

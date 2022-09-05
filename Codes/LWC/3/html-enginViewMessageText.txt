@@ -1,0 +1,34 @@
+<!--
+// 1: tek lightning-input ile tek onchange
+<template>
+    {UsttekiMessage}
+    <lightning-input label="Message Label" value="enter text here.." onchange={method}></lightning-input>    
+    
+</template>
+-->
+
+<!-- 2: iki lightning-input ile iki onchange -->
+
+<template>
+    <lightning-card >
+        <div class="slds-p-around_medium">
+            
+        {firstNameUstte}        
+            <lightning-input 
+                label="First Name" 
+                value="enter first name here.." 
+                onchange={firstNameMethod}>
+            </lightning-input>            
+
+        {lastNameUstte}        
+            <lightning-input 
+                label="Last Name" 
+                value="" 
+                onchange={lastNameMethod}
+                placeholder="type here">
+            </lightning-input>    
+        </div>
+        
+    </lightning-card>
+</template>
+

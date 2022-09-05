@@ -1,0 +1,44 @@
+public with sharing class gstIntegration {
+    public static void getGstRecord(String gstNumber) {
+
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint('https://api.e-waybill.in/api/gstin/validate?gstin='+gstNumber);
+        // ya da 
+        //string endpoint = 'https://api.e-waybill.in/api/gstin/validate?gstin=';
+        //endpoint += '?id=' + id;  (parametre olarak id gelecekse böyle yapılır)
+        // request.setEndpoint(endpoint);
+        request.setMethod('GET'); // Karşı tarafta sadece bilgi okunacağı için GET kullanılır
+
+        Http http = new Http();
+
+        HttpResponse response = new HttpResponse();
+        response = http.send(request);
+        system.debug('==' + response);
+
+        if(response.getStatusCode() == 200){
+            string jsonBody = response.getBody(); // All body information in form Of String
+            system.debug('==' + jsonBody);
+
+        Map<string,Object> getBody = (Map<string,Object>)JSON.deserializeUntyped(jsonBody); // All Body in form of Object
+        System.debug('==' + getBody);
+
+        GST_Records__c gst = new GST_Records__c();
+        gst.name = (String)getBody.get('name');
+        gst.Company_Name__c = (String)getBody.get('gstNumber');
+        gst.Address__c = (String)getBody.get('address');
+        gst.Pincode__c = (String)getBody.get('pinCode');        
+        gst.State__c = (String)getBody.get('state');
+        gst.Valid__c = (String)getBody.get('valid');
+            // mesela gst.Valid__c = (boolean)getBody.get('valid'); olsa idi aşağıdaki gibi değiştirilebilirdi. org'tan valid field ının type checkbox olarak kalıp text olarak değiştirilmeye gerek kalmayacaktı. 
+            // gst.PinCode__c = (Long) JSON.deserialize(JSON.serialize(getBody.get('pinCode')), Long.class);
+            // gst.State__c = (String) getBody.get('state');
+            // gst.Valid__c = (Boolean) JSON.deserialize(JSON.serialize(getBody.get('valid')), Boolean.class);
+
+        insert gst;
+
+        system.debug(gst);
+
+        }
+    }
+}
+

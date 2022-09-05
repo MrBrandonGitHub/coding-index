@@ -1,0 +1,5 @@
+<template>
+    <lightning-card title="Subscriber(Mesaji Alan) pubsub">
+        {allinformation}
+    </lightning-card>
+</template>

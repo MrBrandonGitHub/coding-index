@@ -1,0 +1,12 @@
+import { LightningElement } from 'lwc';
+
+export default class ParentMethodDemo1 extends LightningElement {
+    
+    data1;
+
+    changeHandler(event){
+        this.data1 = event.target.value;        
+
+        this.template.querySelector('c-child-method-demo-1').callToParent(this.data1, 'Brandon', 'The Netherlands');        
+    }
+}

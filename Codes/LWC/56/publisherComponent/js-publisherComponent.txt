@@ -1,0 +1,17 @@
+import { LightningElement, wire } from "lwc";
+
+import { publish, MessageContext } from "lightning/messageService";
+// It will guid me to connect with what file
+import MSGTRANSFER from "@salesforce/messageChannel/messageTransfer__c";
+
+export default class PublisherComponent extends LightningElement {
+  // Connecting to LMS file
+  @wire(MessageContext) messageContext;// Connecting link from LWC to LMS Chanel
+
+  handleClick(event) {
+    const message = { str: event.target.value };
+
+   // publishing It
+    publish(this.messageContext, MSGTRANSFER, message);
+  }
+}

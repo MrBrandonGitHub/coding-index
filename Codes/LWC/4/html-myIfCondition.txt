@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="If condition in LWC">
+        <div class="slds-p-around_medium">
+            <lightning-input 
+            type ="checkbox" 
+            label="click me" 
+            onchange={changeHandler}>
+            </lightning-input>
+
+            <template if:true={checkBoxValue}>
+            <p >Hi i am true condition</p>
+            </template>        
+
+            <template if:false={checkBoxValue}>
+            <p>Hi i am false condition</p>        
+            </template>
+            
+        </div>        
+    </lightning-card>
+</template>

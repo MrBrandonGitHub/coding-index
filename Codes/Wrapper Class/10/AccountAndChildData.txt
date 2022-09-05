@@ -1,0 +1,112 @@
+@RestResource(urlMapping='/AccountAndDataChild/')
+global class AccountAndChildData {
+    
+     // PART A
+    @HttpGet
+   
+        global static List<Account> getRecord(){
+        //List<Account> lstAccount = new List<Account>();
+       
+        Map<String,String> paramsValue = RestContext.request.params;
+        system.debug('RestContext.request::'+RestContext.request);
+            system.debug(':::params:::'+paramsValue); 
+         
+        string accType =paramsValue.get('Type');
+        string accIndustry =paramsValue.get('Industry');    
+            
+ 		string AccountQuery = 'SELECT Id,Name,Type,Industry,'
+            				+'(SELECT Id,Status,Origin FROM Cases),'
+            				+'(SELECT Id,Name,CloseDate FROM Opportunities) FROM Account';
+         
+         if(!String.isBlank(accType) && !String.isBlank(accIndustry) ){           
+             AccountQuery += ' WHERE Type =:accType AND Industry=:accIndustry';             
+         //  AccountQuery =AccountQuery + 'WHERE Type =:accType AND Industry=:accIndustry';
+          
+        }else if(String.isBlank(accType) && !String.isBlank(accIndustry) ){
+            AccountQuery += ' WHERE Industry=:accIndustry';
+           
+        }else if(!String.isBlank(accType) && String.isBlank(accIndustry) ){
+            AccountQuery += ' WHERE Type =:accType';
+            
+        }           
+             
+        return Database.Query(AccountQuery);
+    }
+
+        // PART B
+    @httpPost
+    global static Map<String,String> createAccountsAndChilds(){
+
+        Map<String,String> accountAndChildMap = new Map<String,String>();
+
+        RestRequest req = RestCOntext.request;
+        String jsonBody = req.requestBody.toString();
+        
+       AccAndChildWrapper wrpInstance = (AccAndChildWrapper) JSON.deserialize(jsonBody, AccAndChildWrapper.Class);
+       if (wrpInstance != null) {
+        if (wrpInstance.accobj!=null) {
+
+            account accIns = new account();
+            accIns.Name = wrpInstance.accobj.name;
+            accIns.Type = wrpInstance.accobj.type;
+            accIns.Phone = wrpInstance.accobj.phone;
+            insert accIns;
+
+            accountAndChildMap.put('accountId', accIns.Id);
+
+            if (wrpInstance.caseobj != null) {
+                
+                list<case> listCase = new list<case>();
+                for (CaseWrapper csWrp : wrpInstance.caseobj) {
+
+                    case csIns =new case();
+                    csIns.Status = csWrp.status;
+                    csIns.Origin = csWrp.origin;
+                    csIns.AccountId = accIns.Id;
+                    listCase.add(csIns);
+                }
+                insert listCase;
+            }
+            if (wrpInstance.oppobj != null) {
+
+                List<Opportunity> listOpp = new  List<Opportunity>();
+                for (OppWrapper oppWrp : wrpInstance.oppobj) {
+
+                    opportunity oppIns = new opportunity();
+                    oppIns.Name = oppwrp.name;
+                    oppIns.CloseDate = oppwrp.closeDate;
+                    oppIns.StageName = oppwrp.stageName;
+                    oppIns.Amount = oppWrp.amount;
+                    oppIns.AccountId = accIns.Id;
+                    listOpp.add(oppIns);
+                }
+                insert listOpp;
+            }
+        }  
+    }
+     return accountAndChildMap; 
+    }
+    public class AccAndChildWrapper{
+        public AccountWrapper accobj;
+        public list<CaseWrapper> caseobj;
+        public list<OppWrapper>  oppobj;
+       
+    }
+    public class AccountWrapper{
+        public string name;
+        public string type;
+        public string phone;
+    }
+    public class CaseWrapper{
+        public string Id;
+        public string status;
+        public string origin;
+    }
+    public class OppWrapper{
+        public string name;
+        public date closeDate;
+        public decimal amount;
+        public string stageName;
+    }    
+}
+

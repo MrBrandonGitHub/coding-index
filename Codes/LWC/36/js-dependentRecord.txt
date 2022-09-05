@@ -1,0 +1,52 @@
+import { LightningElement, wire } from 'lwc';
+import { getObjectInfo , getPicklistValues} from 'lightning/uiObjectInfoApi';
+import ACCOUNT_OBJ from '@salesforce/schema/Account';
+import ACCOUNT_STATE from '@salesforce/schema/Account.State__c';
+
+export default class DependentRecord extends LightningElement {
+    allRecordType = [];
+    options = [];
+    idValue;
+    stateOptions = [];
+    allOptional = [];
+    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJ }) getObj({ error, data }) {
+        if (data) {
+            for (var key in data.recordTypeInfos) {
+                this.allRecordType.push({label:data.recordTypeInfos[key].name, value:key });
+            }
+            this.options = this.allRecordType;
+            this.idValue = data.defaultRecordTypeId;
+        } else if (error) {
+            let message = 'Unknown error';
+            if (Array.isArray(error.body)) {
+                message = error.body.map(e => e.message).join(', ');
+            } else if (typeof error.body.message === 'string') {
+                message = error.body.message;
+            }
+        }
+    }
+
+    changeHandler(event){
+        this.idValue = event.detail.value;
+    }
+
+    @wire(getPicklistValues,{recordTypeId: '$idValue' , fieldApiName : ACCOUNT_STATE}) getallData({error,data}){
+        if(data){
+            this.stateOptions = [];
+            data.values.forEach((element,index,array) =>{
+               this.stateOptions.push({label:element.label,value:element.value}); 
+            });
+            this.allOptional = this.stateOptions;
+
+
+        }else if(error){
+            let message = 'Unknown error';
+            if (Array.isArray(error.body)) {
+                message = error.body.map(e => e.message).join(', ');
+            } else if (typeof error.body.message === 'string') {
+                message = error.body.message;
+            }
+        }
+    }
+
+}

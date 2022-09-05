@@ -1,0 +1,15 @@
+import { LightningElement } from 'lwc';
+import allAcc from '@salesforce/apex/imperativeClass.allAcc';
+export default class ImperativelyWireServices extends LightningElement {
+    allAccount;
+    error;
+    // NO Wire keyword required
+    clickHandler(event){
+        allAcc().then(result =>{
+this.allAccount = result;
+        }).catch(error=>{
+            this.error = error.body.message;
+        });
+
+    }
+}

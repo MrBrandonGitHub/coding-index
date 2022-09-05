@@ -1,0 +1,15 @@
+import { LightningElement, wire } from 'lwc';
+import getAllAccount from '@salesforce/apex/getWireAccount.getAllAccount';
+export default class WireAsAFunction extends LightningElement {
+
+    allAccount;
+    error;
+
+    @wire(getAllAccount,{accountRating : 'Hot'}) acc({data,error}){ // parametreli. yani metot ismi ve sonrasında parametre
+        if(data){
+            this.allAccount = data;
+        }else if(error){
+            this.error = error.body.message;
+        }
+    }
+}

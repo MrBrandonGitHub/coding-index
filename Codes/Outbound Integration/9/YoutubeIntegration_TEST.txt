@@ -1,0 +1,14 @@
+@isTest 
+public with sharing class YoutubeIntegration_TEST {
+    @isTest 
+    static void testYoutube(){
+        Test.setMock(HttpCalloutMock.Class, new YoutubeIntegrationMock());
+
+        YoutubeIntegration.getYoutubeDatas('Test Video', '7wm1msX1xto');
+
+        List<Youtube_Video_Detail__c> lstYoutube = [SELECT id, name FROM Youtube_Video_Detail__c LIMIT 1];
+
+        system.assertEquals('Test Video', lstYoutube[0].name);
+        system.assertEquals(1, lstYoutube.size());
+}
+}

@@ -1,0 +1,23 @@
+import { LightningElement, wire } from 'lwc';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi';
+import STATE_FIELD from '@salesforce/schema/Account.State__c';
+
+export default class GetPicklistValues extends LightningElement {
+    myOptions = [];
+    stateOptions=[];
+    
+    @wire(getPicklistValues, {recordTypeId: '0128d000000xRBjAAM', fieldApiName: STATE_FIELD }) getValue({data, error}){
+        if(data){
+            console.log(data);
+            data.values.forEach(myElement => {
+                console.log(myElement);
+                this.myOptions.push({label:myElement.label, value: myElement.value})
+            });
+
+            this.stateOptions = this.myOptions; // üstteki myOptions ile oluyorsa buna gerek kalmayabilir
+
+        }else if(error){
+
+        }
+    }
+}

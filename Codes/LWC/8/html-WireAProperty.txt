@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Account Names">        
+        <template if:true={acc.data}>
+
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered slds-table_striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Industry</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+        
+                    <template for:each={acc.data} for:item="each">
+                        <tr key={each}>
+                        <td>{each.Id}</td>
+                        <td>{each.Name}</td>
+                        <td>{each.Rating}</td>
+                        <td>{each.Industry}</td>
+                        <td>{each.Phone}</td>
+                        </tr>
+                    </template>                
+        
+                </tbody>
+
+            </table>
+        </template>
+
+    <template if:true={acc.error}>
+        Error Message: {acc.error.body.message}
+    </template>
+    </lightning-card>
+</template> 

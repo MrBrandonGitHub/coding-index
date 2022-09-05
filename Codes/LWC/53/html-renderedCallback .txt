@@ -1,0 +1,15 @@
+<template>
+    <lightning-card title="Lightning renderedcallback">
+        <lightning-button label="Click Me" variant="brand" onclick={clickMethod}>
+
+        </lightning-button>
+
+        ====={isVisible}=====
+        <template if:true={isVisible}>
+            <lightning-input label="Test Input">
+
+            </lightning-input>
+
+        </template>
+    </lightning-card>
+</template>

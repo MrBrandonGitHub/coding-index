@@ -1,0 +1,31 @@
+{
+    "accobj": {
+        "name" : "Test AssignmentB",
+        "phone" : "(336)111-7000",
+        "type" : "Prospect"
+    },
+    "caseobj": [
+        {
+        "status": "New",
+        "origin": "Web"
+        },
+        {
+        "status": "New",
+        "origin": "Web"
+        }
+    ],
+    "oppobj": [
+        {
+        "name": "Test opp from Postman 1",
+        "closeDate": "2021-7-12",
+        "amount": "2000000.00",
+        "stageName": "Prospecting"
+        },
+        {
+        "name": "Test opp from Postman 2",
+        "closeDate": "2021-7-12",
+        "amount": "2000000.00",
+        "stageName": "Prospecting"
+        }
+    ]    
+}

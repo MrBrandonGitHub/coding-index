@@ -1,0 +1,23 @@
+public class dynamicSOQLQuery {
+    public static void unitClassMethod(String accRating , String accIndustry){
+       
+      String whereClause = '';
+        List<Account> lstAccount = new List<Account>();
+       
+        if(String.isBlank(accRating) && String.isBlank(accIndustry)){
+           whereClause = '';
+        }else if(!String.isBlank(accRating) && String.isBlank(accIndustry)) {
+           whereClause = ' WHERE Rating=: accRating'; 
+        }else if(String.isBlank(accRating) && !String.isBlank(accIndustry)){
+             whereClause = ' WHERE Industry=: accIndustry'; 
+        }else{
+             whereClause = ' WHERE Rating=: accRating AND Industry=:accIndustry'; 
+        }
+        
+         lstAccount = Database.query('SELECT Id,Name,Rating,Industry FROM Account '+whereClause);  
+        
+       
+        System.debug(lstAccount);
+    }
+
+}

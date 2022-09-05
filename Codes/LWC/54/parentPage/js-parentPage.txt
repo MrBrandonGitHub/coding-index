@@ -1,0 +1,9 @@
+import { LightningElement } from 'lwc';
+
+export default class ParentPage extends LightningElement {
+
+    errorCallback(error, stack){
+        throw error;
+        
+    }
+}

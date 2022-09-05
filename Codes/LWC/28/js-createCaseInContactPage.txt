@@ -1,0 +1,83 @@
+import {api, LightningElement } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { createRecord } from 'lightning/uiRecordApi';
+
+import CASE_OBJ from '@salesforce/schema/Case';
+import CASE_CONTACTID from '@salesforce/schema/Case.ContactId';
+import CASE_PRIORITY from '@salesforce/schema/Case.Priority';
+import CASE_STATUS from '@salesforce/schema/Case.Status';
+import CASE_ORIGIN from '@salesforce/schema/Case.Origin';
+
+export default class CreateCaseInContactPage extends LightningElement {
+    @api recordId;
+    status;
+    priority;
+    origin;
+
+    statusOptions = [
+        { label: '-Null-', value: null },
+        { label: 'New', value: 'New'},
+        { label: 'Working', value: 'Working'},
+        { label: 'Escalated', value: 'Escalated'},
+    ];
+
+    priorityOptions = [
+        { label: '-Null-', value: null },
+        { label: 'High', value: 'High'},
+        { label: 'Medium', value: 'Medium'},
+        { label: 'Low', value: 'Low'},
+    ];
+
+    originOptions = [
+        { label: '-Null-', value: null },
+        { label: 'Phone', value: 'Phone'},
+        { label: 'Email', value: 'Email'},
+        { label: 'Web', value: 'Web'},
+    ];
+
+    statusHandler(event){
+        this.status=event.target.value;
+    }
+
+    priorityHandler(event){
+        this.priority=event.target.value;
+    }
+
+    originHandler(event){
+        this.origin=event.target.value;
+    }
+
+    saveHandler(){
+        var fields = {};
+
+        fields[CASE_STATUS.fieldApiName] = this.status;
+        fields[CASE_PRIORITY.fieldApiName] = this.priority;
+        fields[CASE_ORIGIN.fieldApiName] = this.origin;
+        fields[CASE_CONTACTID.fieldApiName] = this.recordId;
+
+        const recordInput = {
+            apiName: CASE_OBJ.objectApiName,
+            fields: fields
+        }
+
+        createRecord(recordInput)
+        .then(record => {
+            const evt = new ShowToastEvent({
+                title:'Case Record Status',
+                message: 'Record has been created',
+                variant: 'success'
+            });
+            this.dispatchEvent(evt);
+            })
+
+            .catch(error => {
+                const evt = new ShowToastEvent({
+                    title:'Case Record Status',
+                    message: 'Error',
+                    variant: 'error'
+                });
+                this.dispatchEvent(evt);
+                });
+        }
+
+}

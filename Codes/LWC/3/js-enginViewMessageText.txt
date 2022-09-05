@@ -1,0 +1,32 @@
+/*
+// 1: tek lightning-input ile tek onchange
+import { LightningElement, track } from 'lwc';
+
+export default class EnginViewMessageText extends LightningElement {
+    
+    @track UsttekiMessage;
+
+     method(event){
+        this.UsttekiMessage = event.target.value;
+    }    
+}
+*/
+
+// 2: iki lightning-input ile iki onchange
+
+import { LightningElement, track } from 'lwc';
+
+export default class EnginViewMessageText extends LightningElement {
+    
+    @track firstNameUstte;
+    @track lastNameUstte;
+
+    firstNameMethod(event){
+        this.firstNameUstte = event.target.value;
+    }
+
+    lastNameMethod(event){
+        this.lastNameUstte = event.target.value;
+    }
+      
+}

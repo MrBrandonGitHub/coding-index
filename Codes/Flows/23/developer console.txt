@@ -1,0 +1,4 @@
+Create_Records__e event = new Create_Records__e();
+event.Fitrst_Name__c = 'abc';
+event.Second_Name__c = 'def';
+EventBus.publish(event); // insert ===> Platform Event will fire

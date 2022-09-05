@@ -1,0 +1,5 @@
+import { LightningElement } from 'lwc';
+
+export default class EnginShowMe extends LightningElement {
+    status=true;
+}

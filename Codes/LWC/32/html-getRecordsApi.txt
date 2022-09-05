@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="get Record JavaScript Api" >
+        Name :- {name}
+        <br/>
+        Rating :- {rating}
+        <br/>
+        Industry :- {industry}
+        <br/>
+        Phone :- {phone}
+    </lightning-card>
+</template>

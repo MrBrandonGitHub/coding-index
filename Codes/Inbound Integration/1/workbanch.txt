@@ -1,0 +1,17 @@
+1
+/services/apexrest/AccountRating/?Id=0018d000009xDZxAAM
+
+2
+/services/apexrest/AccountRating/?Rating=Hot
+
+3
+
+
+4
+/services/apexrest/AccountRating/?Id=0018d000009wryMAAQ
+
+5
+/services/apexrest/AccountRating/?Id=0018d000009ws0XAAQ
+
+6
+/services/apexrest/AccountRating/?Id=0018d000009ws0XAAQ

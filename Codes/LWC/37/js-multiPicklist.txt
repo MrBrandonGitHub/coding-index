@@ -1,0 +1,48 @@
+import { LightningElement, wire } from 'lwc';
+import { getObjectInfo,getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
+import ACCOUNT_OBJECT from '@salesforce/schema/Account';
+import SATATE_FIELD from '@salesforce/schema/Account.State__c';
+import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
+
+export default class multiPicklist extends LightningElement {
+    allAccountRecordType = [];
+    recordTypeOption = [];
+    value;
+    stateOptions = [];
+    allStateValues = [];
+
+    @wire(getObjectInfo, { objectApiName: ACCOUNT_OBJECT }) getInfo({ data, error }) {
+
+        if (data) {
+            // key for Loop
+            for (var key in data.recordTypeInfos) {
+                this.recordTypeOption.push({ label: data.recordTypeInfos[key].name, value: key });
+            }
+            this.allAccountRecordType = this.recordTypeOption;
+this.value = data.defaultRecordTypeId;
+           
+        
+        } else if (error) {
+            console.log(error)
+        }
+    }
+
+    handlerEvent(event){
+        this.value = event.detail.value;// Indian Record Type Id
+        
+    }
+    //value ===> Indian Record Type Id (at time of page reload)
+
+    @wire(getPicklistValuesByRecordType,{ recordTypeId:'$value', objectApiName: ACCOUNT_OBJECT}) getPickVal({data,error}){
+      console.log(data);
+        if(data){
+         this.allStateValues = data.picklistFieldValues.State__c.values;
+         this.allIndustryField = data.picklistFieldValues.Industry.values;
+         this.allRatingField = data.picklistFieldValues.Rating.values;// [{…}, {…}, {…}
+        
+        }else if(error){
+
+        }
+    }
+
+}
